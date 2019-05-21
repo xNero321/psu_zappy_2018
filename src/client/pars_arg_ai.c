@@ -43,15 +43,6 @@ bool check_opts_ai(options_ai_t opts)
     return !(opts.name && opts.machine && opts.port == 0);
 }
 
-void print_usage_ai()
-{
-    printf("USAGE: ./zappy_ai -p port -n name -h machine\n");
-    printf(
-        "\tport\tis the port number\n\tname\tis the name of the "
-        "team\n\tmachine\tis the name of the machine; localhost by default\n");
-    exit(84);
-}
-
 void ai(int ac, char** av)
 {
     options_ai_t opts = {NULL, 0, NULL};
