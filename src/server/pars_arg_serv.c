@@ -5,25 +5,24 @@
 ** parsing
 */
 
+#include <getopt.h>
+
 #include "my_zappy.h"
 
-static struct option long_options[] = {
-    {"port", required_argument, 0, 'p'},
-    {"name", required_argument, 0, 'n'},
-    {"width", required_argument, 0, 'x'},
-    {"height", required_argument, 0, 'y'},
-    {"clientsNb", required_argument, 0, 'c'},
-    {"freq", required_argument, 0, 'f'},
-};
+static struct option long_options[] = {{"port", required_argument, 0, 'p'},
+                                       {"name", required_argument, 0, 'n'},
+                                       {"width", required_argument, 0, 'x'},
+                                       {"height", required_argument, 0, 'y'},
+                                       {"clientsNb", required_argument, 0, 'c'},
+                                       {"freq", required_argument, 0, 'f'},
+                                       {0, 0, 0, 0}};
 
 bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
 {
-    for (int32_t option_index = 0;; option_index = 0) {
-        int8_t c =
-            getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &option_index);
-        if (c == -1)
-            break;
-        switch (c) {
+    int32_t long_index = 0;
+    for (int8_t opt = 0; opt != -1;
+         opt = getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &long_index)) {
+        switch (opt) {
         case 'p':
             if (!str_to_uint16(optarg, &(opts->port)))
                 return false;
@@ -43,9 +42,8 @@ bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
         case 'f':
             opts->freq = atoi(optarg);
             break;
-        case '?':
         default:
-            return false;
+            break;
         }
     }
     return true;
@@ -53,8 +51,11 @@ bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
 
 bool check_opts_serv(options_serv_t opts)
 {
-    return !(opts.nameX && opts.width && opts.height && opts.clientsNb &&
-             opts.freq && opts.port == 0);
+    if (opts.nameX != NULL && opts.width != 0 && opts.height != 0 &&
+        opts.clientsNb != 0 && opts.freq != 0 && opts.port != 0) {
+        return (true);
+    }
+    return (false);
 }
 
 void print_usage_serv()
@@ -78,6 +79,6 @@ void serv(int ac, char** av)
         print_usage_serv();
     else {
         if (!parse_args_serv(ac, av, &opts) || !check_opts_serv(opts))
-            return (84);
+            exit(84);
     }
 }
