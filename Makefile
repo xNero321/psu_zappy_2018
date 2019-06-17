@@ -11,26 +11,21 @@ NAME_SRV	=	zappy_server
 
 CFLAGS		=	-I./includes/
 
-SRC_CLIENT	=	./src/client/client.c
-
 SRC_SRV		=	./src/server/server.c
-
-OBJ_CLIENT	=	$(SRC_CLIENT:.c=.o)
-
+				./src/server/pars_arg_serv.clean.c
+				./src/server/utils.c
+				
 OBJ_SRV		=	$(SRC_SRV:.c=.o)
 
 all:			$(NAME_CLIENT) $(NAME_SRV)
-
-$(NAME_CLIENT): $(OBJ_CLIENT)
-	$(CC) $(SRC_CLIENT) -o $(NAME_CLIENT) $(LDFLAGS)
 
 $(NAME_SRV):	$(OBJ_SRV)
 	$(CC) $(OBJ_SRV) -o $(NAME_SRV) $(LDFLAGS)
 
 clean:
-	$(RM) $(OBJ_SRV) $(OBJ_CLIENT)
+	$(RM) $(OBJ_SRV)
 
 fclean: clean
-	$(RM) $(NAME_SRV) $(NAME_CLIENT)
+	$(RM) $(NAME_SRV)
 
 re: fclean all

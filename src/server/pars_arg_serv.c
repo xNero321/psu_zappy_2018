@@ -6,7 +6,6 @@
 */
 
 #include <getopt.h>
-
 #include "my_zappy.h"
 
 static struct option long_options[] = {{"port", required_argument, 0, 'p'},
@@ -16,6 +15,31 @@ static struct option long_options[] = {{"port", required_argument, 0, 'p'},
                                        {"clientsNb", required_argument, 0, 'c'},
                                        {"freq", required_argument, 0, 'f'},
                                        {0, 0, 0, 0}};
+
+int size_tab(char **av)
+{
+    int j;
+    int i;
+    for (j = 0; strcmp(av[j], "-n") != 0; j++);
+    for (; av[j] != NULL; j++)
+        i++;
+    return (i);
+}
+
+char** find_name(char** av)
+{
+    char** toto = malloc(sizeof(char*) * size_tab(av));
+    int j;
+    for (j = 0; strcmp(av[j], "-n") != 0; j++);
+    j = j + 1;
+    int i = 0;
+    for (; av[j][0] != '-'; j++) {
+        toto[i] = malloc(sizeof(char) * strlen(av[j]));
+        strcpy(toto[i], av[j]);
+        i++;
+    }
+    return (toto);
+}
 
 bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
 {
@@ -28,7 +52,7 @@ bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
                 return false;
             break;
         case 'n':
-            opts->nameX = strdup(optarg);
+            opts->nameX = find_name(av);
             break;
         case 'x':
             opts->width = atoi(optarg);

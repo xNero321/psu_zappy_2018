@@ -22,7 +22,7 @@ typedef struct options_serv_s {
     uint16_t port;
     int width;
     int height;
-    char* nameX;
+    char** nameX;
     int clientsNb;
     int freq;
 } options_serv_t;
@@ -30,4 +30,5 @@ typedef struct options_serv_s {
 bool parse_args_serv(int ac, char* av[], options_serv_t* opts);
 bool check_opts_serv(options_serv_t opts);
 bool str_to_uint16(const char* str, uint16_t* res);
+char** find_name(char** av);
 #endif /* !MY_ZAPPY_H_ */
