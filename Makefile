@@ -9,15 +9,15 @@ NAME_CLIENT	=	zappy_ai
 
 NAME_SRV	=	zappy_server
 
-CFLAGS		=	-I./includes/
+CFLAGS		=	-I./include/
 
-SRC_SRV		=	./src/server/server.c
-				./src/server/pars_arg_serv.clean.c
+SRC_SRV		=	main.c							\
+				./src/server/pars_arg_serv.c	\
 				./src/server/utils.c
-				
+
 OBJ_SRV		=	$(SRC_SRV:.c=.o)
 
-all:			$(NAME_CLIENT) $(NAME_SRV)
+all:			$(NAME_SRV)
 
 $(NAME_SRV):	$(OBJ_SRV)
 	$(CC) $(OBJ_SRV) -o $(NAME_SRV) $(LDFLAGS)

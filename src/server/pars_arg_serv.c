@@ -82,27 +82,13 @@ bool check_opts_serv(options_serv_t opts)
     return (false);
 }
 
-void print_usage_serv()
-{
-    printf("USAGE: ./zappy_server -p port -x width -y height -n name1 name2 "
-           "... -c clientsNb -f freq\n");
-    printf(
-        "\tport\t\tis the port number\n\twidth\t\tis the width of the "
-        "world\n\theight\t\tis the height of the world\n\tnameX\t\tis the name "
-        "of the team X\n\tclientsNb\tis the number of authorized clients "
-        "per team\n\tfreq\t\tis the reciprocal of time unit for execution of "
-        "actions\n");
-    exit(84);
-}
-
 void serv(int ac, char** av)
 {
     options_serv_t opts = {0, 0, 0, NULL, 0, 0};
 
     if (ac == 2 && strcmp(av[1], "-help") == 0)
         print_usage_serv();
-    else {
+    else
         if (!parse_args_serv(ac, av, &opts) || !check_opts_serv(opts))
             exit(84);
-    }
 }
