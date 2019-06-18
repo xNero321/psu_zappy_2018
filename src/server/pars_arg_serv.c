@@ -28,13 +28,13 @@ int size_tab(char **av)
 
 char** find_name(char** av)
 {
-    char** toto = calloc(sizeof(char*) * size_tab(av));
+    char** toto = calloc(size_tab(av), sizeof(char*));
     int j;
     for (j = 0; strcmp(av[j], "-n") != 0; j++);
     j = j + 1;
     int i = 0;
     for (; av[j][0] != '-'; j++) {
-        toto[i] = calloc(sizeof(char) * strlen(av[j]));
+        toto[i] = calloc(strlen(av[j]), sizeof(char));
         strcpy(toto[i], av[j]);
         i++;
     }

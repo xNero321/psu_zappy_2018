@@ -13,7 +13,8 @@ CFLAGS		=	-I./include/
 
 SRC_SRV		=	main.c							\
 				./src/server/pars_arg_serv.c	\
-				./src/server/utils.c
+				./src/server/utils.c			\
+				./src/server/map.c
 
 OBJ_SRV		=	$(SRC_SRV:.c=.o)
 
