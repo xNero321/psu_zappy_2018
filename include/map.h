@@ -22,4 +22,6 @@
         mapcell_t *down;
     };
 
+    mapcell_t *create_map(int size);
+
 #endif /* !MAP_H_ */

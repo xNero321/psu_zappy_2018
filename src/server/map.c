@@ -5,7 +5,7 @@
 ** map
 */
 
-#include "map.h"
+#include "my_zappy.h"
 
 mapcell_t *new_line(mapcell_t *map, int y)
 {
@@ -20,9 +20,11 @@ mapcell_t *new_line(mapcell_t *map, int y)
     for (; tmp && tmp->down; tmp = tmp->down)
     new->up = tmp;
     if (!map)
-        return (tmp);
-    else
-        return (map);    
+        return (new);
+    else {
+        tmp->down = new;
+        return (map);
+    } 
 }
 
 void new_cell(mapcell_t *map, int y, int x)
@@ -37,12 +39,43 @@ void new_cell(mapcell_t *map, int y, int x)
     new->y = y;
     for (; tmp_line && tmp_line->down; tmp_line = tmp_line->down)
         tmp_cell = tmp_cell->down;
-    tmp_cell = tmp_cell->down;
-    for (; tmp_cell && tmp_cell->left; tmp_cell = tmp_cell->left)
-        tmp_line = tmp_line->left;
-    tmp_line = tmp_line->left;
+    tmp_cell = (tmp_cell) ? tmp_cell->down : NULL;
+    for (; tmp_cell && tmp_cell->right; tmp_cell = tmp_cell->right)
+        tmp_line = tmp_line->right;
+    if (tmp_line) {
+        tmp_line = tmp_line->right;
+        if (tmp_line)
+            tmp_line->down = new;
+        if(tmp_cell)
+            tmp_cell->right = new;
+    }
     new->left = tmp_cell;
     new->up = tmp_line;
+}
+
+void check_cell(mapcell_t *cell, int x, int y, int size)
+{
+    if (x > 0 && (!cell->left))
+        printf("left\t[%d,%d]\n", x, y);
+    if (x < size - 1 && (!cell->right))
+        printf("right\t[%d,%d]\n", x, y);
+    if (y > 0 && (!cell->up))
+        printf("up\t[%d,%d]\n", x, y);
+    if (x < size - 1 && (!cell->down))
+        printf("down\t[%d,%d]\n", x, y);
+}
+
+void check_map(mapcell_t *map, int size)
+{
+    mapcell_t *tmp = map;
+    mapcell_t *line = map;
+
+    for (int y = 0; line; line = line->down, y++) {
+        tmp = line;
+        for (int x = 0; tmp; tmp = tmp->left, x++) {
+            check_cell(tmp, x, y, size);
+        }
+    }
 }
 
 mapcell_t *create_map(int size)
