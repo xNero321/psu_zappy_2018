@@ -27,6 +27,15 @@ mapcell_t *new_line(mapcell_t *map, int y)
     } 
 }
 
+void fill_map(mapcell_t *map)
+{
+    srand(time(NULL));
+
+    for (mapcell_t *line = map; line; line = line->down) {
+        for (mapcell_t *cell = line; cell; cell = cell->right);
+    }
+}
+
 void new_cell(mapcell_t *map, int y, int x)
 {
     mapcell_t *new = malloc(sizeof(mapcell_t));
@@ -43,17 +52,11 @@ void new_cell(mapcell_t *map, int y, int x)
     new->left = tmp_cell;
 }
 
-mapcell_t *create_map(int size)
+void link_map(mapcell_t *map)
 {
-    mapcell_t *map = NULL;
     mapcell_t *save = NULL;
+    mapcell_t *last = NULL;
 
-    for (int y = 0; y < size; y++) {
-        map = new_line(map, y);
-        for (int x = 1; x < size; x++) {
-            new_cell(map, y, x);
-        }
-    }
     for (mapcell_t *prev = map; prev; prev = prev->down) {
         save = prev;
         for (mapcell_t *line = prev->down; line; line = line->right) {
@@ -61,7 +64,26 @@ mapcell_t *create_map(int size)
             line->up = prev;
             prev = prev->right;
         }
+        prev->right = save;
+        save->left = prev;
         prev = save;
     }
+    for (last = map; last->down; last = last->down);
+    for (save = map; save; save = save->right, last = save->right) {
+        save->up = last;
+        last->down = save;
+    }
+}
+mapcell_t *create_map(int size)
+{
+    mapcell_t *map = NULL;
+
+    for (int y = 0; y < size; y++) {
+        map = new_line(map, y);
+        for (int x = 1; x < size; x++) {
+            new_cell(map, y, x);
+        }
+    }
+    fill_map(map);
     return (map);
 }

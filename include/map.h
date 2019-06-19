@@ -13,7 +13,7 @@
     typedef struct mapcell_s mapcell_t;
 
     struct mapcell_s {
-        char *objects;
+        item obj[7];
         int x;
         int y;
         mapcell_t *right;
