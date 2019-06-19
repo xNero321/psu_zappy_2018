@@ -29,16 +29,6 @@ typedef struct options_serv_s {
     int freq;
 } options_serv_t;
 
-typedef enum {
-    FOOD,
-    LINEMATE,
-    DERAUMERE,
-    SIBUR,
-    MENDIANE,
-    PHIRAS,
-    THYSTAME
-} item;
-
 bool parse_args_serv(int ac, char* av[], options_serv_t* opts);
 bool check_opts_serv(options_serv_t opts);
 bool str_to_uint16(const char* str, uint16_t* res);

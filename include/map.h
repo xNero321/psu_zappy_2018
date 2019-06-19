@@ -10,10 +10,20 @@
 
     #include "my_zappy.h"
 
+    typedef enum item {
+        FOOD,
+        LINEMATE,
+        DERAUMERE,
+        SIBUR,
+        MENDIANE,
+        PHIRAS,
+        THYSTAME
+    } item_t;
+
     typedef struct mapcell_s mapcell_t;
 
     struct mapcell_s {
-        //item obj[7];
+        item_t obj[7];
         int x;
         int y;
         mapcell_t *right;

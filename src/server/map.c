@@ -30,10 +30,12 @@ mapcell_t *new_line(mapcell_t *map, int y)
 void fill_map(mapcell_t *map)
 {
     srand(time(NULL));
+    item_t item;
 
-    for (mapcell_t *line = map; line; line = line->down) {
-        for (mapcell_t *cell = line; cell; cell = cell->right);
-    }
+    for (mapcell_t *line = map; line; line = line->down)
+        for (mapcell_t *cell = line; cell; cell = cell->right)
+            for (int i = 0; i < 7; i++)
+                cell->obj[i] = (rand() % 10 > i + 2) ? i + 1 : 0;
 }
 
 void new_cell(mapcell_t *map, int y, int x)
@@ -77,6 +79,8 @@ void link_map(mapcell_t *map)
 mapcell_t *create_map(int size)
 {
     mapcell_t *map = NULL;
+    int x = 0;
+    int y = 0;
 
     for (int y = 0; y < size; y++) {
         map = new_line(map, y);
@@ -85,5 +89,15 @@ mapcell_t *create_map(int size)
         }
     }
     fill_map(map);
+    // for (mapcell_t *line = map; line; line = line->down, y++) {
+    //     x = 0;
+    //     for (mapcell_t *cell = line; cell; cell = cell->right, x++) {
+    //         printf("[");
+    //         for (int i = 0; i < 7; i++)
+    //             printf(" %d", cell->obj[i]);
+    //         printf("] ");
+    //     }
+    //     printf("\n");
+    // }
     return (map);
 }
