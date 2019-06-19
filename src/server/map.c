@@ -43,33 +43,6 @@ void new_cell(mapcell_t *map, int y, int x)
     new->left = tmp_cell;
 }
 
-void check_cell(mapcell_t *cell, int x, int y, int size)
-{
-    if (x > 0 && (!cell->left))
-        printf("left\t[%d,%d]\n", x, y);
-    if (x < size - 1 && (!cell->right))
-        printf("right\t[%d,%d]\n", x, y);
-    if (y > 0 && (!cell->up))
-        printf("up\t[%d,%d]\n", x, y);
-    if (y < size - 1 && (!cell->down))
-        printf("down\t[%d,%d]\n", x, y);
-}
-
-void check_map(mapcell_t *map, int size)
-{
-    mapcell_t *tmp = map;
-    mapcell_t *line = map;
-
-    for (int y = 0; line; line = line->down, y++) {
-        tmp = line;
-        for (int x = 0; tmp; tmp = tmp->right, x++) {
-            check_cell(tmp, x, y, size);
-            //printf("[%d,%d] ", tmp->x, tmp->y);
-        }
-        //printf("\n");
-    }
-}
-
 mapcell_t *create_map(int size)
 {
     mapcell_t *map = NULL;
