@@ -19,7 +19,7 @@ bool str_to_uint16(const char* str, uint16_t* res)
     return true;
 }
 
-void print_usage_serv()
+void print_usage_serv(void)
 {
     printf("USAGE: ./zappy_server -p port -x width -y height -n name1 name2 "
            "... -c clientsNb -f freq\n");
@@ -30,4 +30,13 @@ void print_usage_serv()
         "per team\n\tfreq\t\tis the reciprocal of time unit for execution of "
         "actions\n");
     exit(84);
+}
+
+bool check_opts_serv(options_serv_t opts)
+{
+    if (opts.nameX != NULL && opts.width != 0 && opts.height != 0 &&
+        opts.clientsNb != 0 && opts.freq != 0 && opts.port != 0) {
+        return (true);
+    }
+    return (false);
 }
