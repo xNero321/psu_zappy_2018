@@ -9,8 +9,6 @@
 
 int main(int ac, char**av)
 {
-    mapcell_t *map = create_map(10);
-
-    //serv(ac, av);
+    serv(ac, av);
     return (0);
 }

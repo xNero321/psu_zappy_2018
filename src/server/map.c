@@ -76,28 +76,16 @@ void link_map(mapcell_t *map)
         last->down = save;
     }
 }
-mapcell_t *create_map(int size)
+mapcell_t *create_map(options_serv_t *opt)
 {
     mapcell_t *map = NULL;
-    int x = 0;
-    int y = 0;
 
-    for (int y = 0; y < size; y++) {
+    for (int y = 0; y < opt->width; y++) {
         map = new_line(map, y);
-        for (int x = 1; x < size; x++) {
+        for (int x = 1; x < opt->height; x++) {
             new_cell(map, y, x);
         }
     }
     fill_map(map);
-    // for (mapcell_t *line = map; line; line = line->down, y++) {
-    //     x = 0;
-    //     for (mapcell_t *cell = line; cell; cell = cell->right, x++) {
-    //         printf("[");
-    //         for (int i = 0; i < 7; i++)
-    //             printf(" %d", cell->obj[i]);
-    //         printf("] ");
-    //     }
-    //     printf("\n");
-    // }
     return (map);
 }

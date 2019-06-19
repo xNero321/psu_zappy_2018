@@ -24,6 +24,7 @@
 
     struct mapcell_s {
         item_t obj[7];
+        char character;
         int x;
         int y;
         mapcell_t *right;
@@ -32,6 +33,7 @@
         mapcell_t *down;
     };
 
-    mapcell_t *create_map(int size);
+    mapcell_t *create_map(options_serv_t *opt);
+    char *map_to_array(mapcell_t *map);
 
 #endif /* !MAP_H_ */

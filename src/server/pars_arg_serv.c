@@ -77,10 +77,13 @@ bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
 void serv(int ac, char** av)
 {
     options_serv_t opts = {0, 0, 0, NULL, 0, 0};
+    mapcell_t *map = NULL;
+    //char *armap = map_to_array(map);
 
     if (ac == 2 && strcmp(av[1], "-help") == 0)
         print_usage_serv();
     else
         if (!parse_args_serv(ac, av, &opts) || !check_opts_serv(opts))
             exit(84);
+    map = create_map(&opts);
 }
