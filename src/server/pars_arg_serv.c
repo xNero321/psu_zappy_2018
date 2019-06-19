@@ -19,7 +19,7 @@ static struct option long_options[] = {{"port", required_argument, 0, 'p'},
 int size_tab(char **av)
 {
     int j;
-    int i;
+    int i = 0;
     for (j = 0; strcmp(av[j], "-n") != 0; j++);
     for (; av[j] != NULL; j++)
         i++;
@@ -41,45 +41,37 @@ char** find_name(char** av)
     return (toto);
 }
 
-bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
+bool analyse_opt(char** av, options_serv_t *opts, int8_t opt)
 {
-    int32_t long_index = 0;
-    for (int8_t opt = 0; opt != -1;
-         opt = getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &long_index)) {
-        switch (opt) {
-        case 'p':
-            if (!str_to_uint16(optarg, &(opts->port)))
-                return false;
+    switch (opt) {
+        case 'p': if (!str_to_uint16(optarg, &(opts->port)))
+                    return false;
             break;
-        case 'n':
-            opts->nameX = find_name(av);
+        case 'n': opts->nameX = find_name(av);
             break;
-        case 'x':
-            opts->width = atoi(optarg);
+        case 'x': opts->width = atoi(optarg);
             break;
-        case 'y':
-            opts->height = atoi(optarg);
+        case 'y': opts->height = atoi(optarg);
             break;
-        case 'c':
-            opts->clientsNb = atoi(optarg);
+        case 'c': opts->clientsNb = atoi(optarg);
             break;
-        case 'f':
-            opts->freq = atoi(optarg);
+        case 'f': opts->freq = atoi(optarg);
             break;
-        default:
-            break;
-        }
+        default: break;
     }
-    return true;
+    return (true);
 }
 
-bool check_opts_serv(options_serv_t opts)
+bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
 {
-    if (opts.nameX != NULL && opts.width != 0 && opts.height != 0 &&
-        opts.clientsNb != 0 && opts.freq != 0 && opts.port != 0) {
-        return (true);
+    int32_t idx = 0;
+
+    for (int8_t opt = 0; opt != -1; opt = 
+        getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &idx)) {
+        if (!analyse_opt(av, opts, opt))
+            return (false);
     }
-    return (false);
+    return (true);
 }
 
 void serv(int ac, char** av)

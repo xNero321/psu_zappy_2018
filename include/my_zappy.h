@@ -34,4 +34,5 @@ bool str_to_uint16(const char* str, uint16_t* res);
 char** find_name(char** av);
 void print_usage_serv();
 void serv(int ac, char** av);
+bool check_opts_serv(options_serv_t opts);
 #endif /* !MY_ZAPPY_H_ */
