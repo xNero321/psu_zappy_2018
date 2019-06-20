@@ -24,9 +24,9 @@ def check_return_team(s, arg):
         exit(84)
     tab = data.decode('utf-8').split('\n')
     info_ia.number = int(tab[0])
-    info_ia.map_size_x = int(tab[0].split(' ')[0])
-    info_ia.map_size_x = int(tab[0].split(' ')[1])
+    info_ia.map_size_x = int(tab[1].split(' ')[0])
+    info_ia.map_size_x = int(tab[1].split(' ')[1])
 
 def start_of_ia(s, arg):
     check_good_start(s)
-    check_return_team(s, arg).decode('utf-8')
+    check_return_team(s, arg)
