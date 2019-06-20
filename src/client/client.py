@@ -6,7 +6,7 @@ import zappy_ia
 def main():
     args = arg_parsing()
     s = socket_connection.create_and_connect(args.p, args.m)
-    zappy_ia.start_of_ia(s)
+    zappy_ia.start_of_ia(s, args)
     socket_connection.close_socket(s)
 
 def arg_parsing():
