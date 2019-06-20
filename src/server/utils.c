@@ -40,3 +40,9 @@ bool check_opts_serv(options_serv_t opts)
     }
     return (false);
 }
+
+void perror_exit(char* str, int error)
+{
+    perror(str);
+    exit(error);
+}

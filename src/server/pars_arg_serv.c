@@ -6,7 +6,7 @@
 */
 
 #include <getopt.h>
-#include "my_zappy.h"
+#include "map.h"
 
 static struct option long_options[] = {{"port", required_argument, 0, 'p'},
                                        {"name", required_argument, 0, 'n'},
@@ -78,7 +78,7 @@ void serv(int ac, char** av)
 {
     options_serv_t opts = {0, 0, 0, NULL, 0, 0};
     mapcell_t *map = NULL;
-    //char *armap = map_to_array(map);
+    char *armap = map_to_array(map);
 
     if (ac == 2 && strcmp(av[1], "-help") == 0)
         print_usage_serv();
@@ -86,4 +86,5 @@ void serv(int ac, char** av)
         if (!parse_args_serv(ac, av, &opts) || !check_opts_serv(opts))
             exit(84);
     map = create_map(&opts);
+    send_map(map);
 }

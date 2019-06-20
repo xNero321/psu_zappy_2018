@@ -18,7 +18,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
-#include "map.h"
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
+#define PORT 4242
 
 typedef struct options_serv_s {
     uint16_t port;

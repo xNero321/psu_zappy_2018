@@ -5,7 +5,7 @@
 ** map
 */
 
-#include "my_zappy.h"
+#include "map.h"
 
 mapcell_t *new_line(mapcell_t *map, int y)
 {
@@ -24,7 +24,7 @@ mapcell_t *new_line(mapcell_t *map, int y)
     else {
         tmp->down = new;
         return (map);
-    } 
+    }
 }
 
 void fill_map(mapcell_t *map)

@@ -35,5 +35,7 @@
 
     mapcell_t *create_map(options_serv_t *opt);
     char *map_to_array(mapcell_t *map);
+    void perror_exit(char* str, int error);
+    int send_map(mapcell_t *map);
 
 #endif /* !MAP_H_ */
