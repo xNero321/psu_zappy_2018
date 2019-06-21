@@ -85,9 +85,9 @@ mapcell_t *create_map(options_serv_t *opt)
 {
     mapcell_t *map = NULL;
 
-    for (int y = 0; y < opt->width; y++) {
+    for (int y = 0; y < opt->height; y++) {
         map = new_line(map, y);
-        for (int x = 1; x < opt->height; x++) {
+        for (int x = 1; x < opt->width; x++) {
             new_cell(map, y, x);
         }
     }
