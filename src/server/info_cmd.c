@@ -51,3 +51,19 @@ char *look(player_t *player)
     }
     return (look);
 }
+
+char *inventory(player_t *player)
+{
+    char *items = "[";
+    char item[6][9] = {"linemate", "deraumere", "sibur", "mendiane",
+    "phiras", "thystame"};
+
+    for (int i = 0; i < 6; i++) {
+        asprintf(&items, "%s%s %d", items, item[i], player->items[i]);
+        if (i < 5)
+            asprintf(&items, "%s,", items);
+        else
+            asprintf(&items, "%s]", items);
+    }
+    return (items);
+}

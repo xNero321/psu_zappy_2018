@@ -90,7 +90,9 @@ void serv(int ac, char** av)
     player.pos = map;
     player.dir = 0;
     player.level = 2;
+    for (int i = 0; i < 6; i++)
+        player.items[i] = 0;
     map->character = 1;
-    printf("%s", look(&player));
+    printf("%s", inventory(&player));
     // send_map(map);
 }

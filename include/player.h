@@ -23,4 +23,5 @@
     char *forward(player_t *);
     char *left(player_t *);
     char *look(player_t *);
+    char *inventory(player_t *);
 #endif /* !PLAYER_H_ */
