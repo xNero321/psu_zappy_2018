@@ -91,6 +91,6 @@ void serv(int ac, char** av)
     player.dir = 0;
     player.level = 2;
     map->character = 1;
-    printf("\n%s\n", look(&player));
-    //send_map(map);
+    printf("%s", look(&player));
+    // send_map(map);
 }
