@@ -27,13 +27,15 @@ mapcell_t *new_line(mapcell_t *map, int y)
     }
 }
 
-void fill_map(mapcell_t *map)
+void fill_map(mapcell_t *map, options_serv_t *opt)
 {
     srand(time(NULL));
+    mapcell_t *line = map;
+    mapcell_t *cell = line;
     item_t item;
 
-    for (mapcell_t *line = map; line; line = line->down)
-        for (mapcell_t *cell = line; cell; cell = cell->right)
+    for (int y = 0;  y < opt->height; line = line->down, y++, cell = line)
+        for (int x = 0; x < opt->width; cell = cell->right, x++)
             for (int i = 0; i < 7; i++)
                 cell->obj[i] = (rand() % 10 > i + 2) ? i + 1 : 0;
 }
@@ -54,7 +56,7 @@ void new_cell(mapcell_t *map, int y, int x)
     new->left = tmp_cell;
 }
 
-void link_map(mapcell_t *map)
+void link_map(mapcell_t *map, options_serv_t *opt)
 {
     mapcell_t *save = NULL;
     mapcell_t *last = NULL;
@@ -64,18 +66,21 @@ void link_map(mapcell_t *map)
         for (mapcell_t *line = prev->down; line; line = line->right) {
             prev->down = line;
             line->up = prev;
-            prev = prev->right;
+            prev = (prev->right) ? prev->right : prev;
         }
         prev->right = save;
         save->left = prev;
         prev = save;
     }
     for (last = map; last->down; last = last->down);
-    for (save = map; save; save = save->right, last = save->right) {
+    save = map;
+    for (int x = 0; x < opt->width; save = save->right, last = save->right) {
         save->up = last;
         last->down = save;
+        x++;
     }
 }
+
 mapcell_t *create_map(options_serv_t *opt)
 {
     mapcell_t *map = NULL;
@@ -86,6 +91,7 @@ mapcell_t *create_map(options_serv_t *opt)
             new_cell(map, y, x);
         }
     }
-    fill_map(map);
+    link_map(map, opt);
+    fill_map(map, opt);
     return (map);
 }
