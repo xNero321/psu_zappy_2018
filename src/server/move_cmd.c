@@ -9,12 +9,7 @@
 
 char *forward(player_t *player)
 {
-    mapcell_t *dir[4] = {
-        player->pos->left, player->pos->up,
-        player->pos->right, player->pos->down
-    };
-
-    player->pos = dir[player->dir];
+    player->pos = player->pos->dir[player->dir];
     return ("ok");
 }
 

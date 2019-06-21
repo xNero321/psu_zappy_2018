@@ -27,10 +27,7 @@
         char character;
         int x;
         int y;
-        mapcell_t *right;
-        mapcell_t *left;
-        mapcell_t *up;
-        mapcell_t *down;
+        mapcell_t *dir[4];
     };
 
     mapcell_t *create_map(options_serv_t *opt);

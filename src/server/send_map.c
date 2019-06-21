@@ -13,9 +13,9 @@ char *map_to_array(mapcell_t *map)
     int x = 0;
     int y = 0;
 
-    for (mapcell_t *line = map; line; line = line->down, y++) {
+    for (mapcell_t *line = map; line; line = line->dir[3], y++) {
         x = 0;
-        for (mapcell_t *cell = line; cell; cell = cell->right, x++) {
+        for (mapcell_t *cell = line; cell; cell = cell->dir[2], x++) {
             asprintf(&ar_map, "%s[", ar_map);
             for (int i = 0; i < 7; i++)
                 asprintf(&ar_map, "%s%d,", ar_map, cell->obj[i]);
