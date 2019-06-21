@@ -31,10 +31,10 @@
     
     typedef enum
     {
+        LEFT,
         UP,
-        EAST,
-        SOUTH,
-        WEST
+        RIGHT,
+        SOUTH
     } dir_e;
     
     typedef struct server_s
