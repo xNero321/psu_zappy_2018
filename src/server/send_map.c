@@ -40,6 +40,9 @@ void destroy_map(mapcell_t *map, options_serv_t opt)
         }
         map = nextline;
     }
+    for (int y = 0; opt.nameX[y]; y++)
+        free(opt.nameX[y]);
+    free(opt.nameX);
 }
 
 int send_map(mapcell_t *map) {
