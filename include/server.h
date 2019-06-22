@@ -21,7 +21,7 @@
     typedef struct client_s client_t;
     typedef struct linked_buffer_s linked_buffer_t;
     typedef struct server_s server_t;
-    typedef struct team_s team_t;    
+    typedef struct team_s team_t;
 
     struct linked_buffer_s {
         char buffer[2048];
@@ -74,6 +74,10 @@
     void init_server(server_t *server);
     void init_server_socket(server_t *server, struct protoent *pe);
     void start_epoll(server_t *server);
+    void get_user(client_t *clt, server_t *server);
+    void init_buffer(linked_buffer_t *buff);
+    int send_message(int fd, const char *format, ...);
+    void events_distribution(server_t *server, int i);
     char *right(client_t *);
     char *forward(client_t *);
     char *left(client_t *);

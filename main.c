@@ -7,6 +7,8 @@
 
 #include "server.h"
 
+server_t server;
+
 int main(int ac, char**av)
 {
     options_serv_t opts = {0, 0, 0, NULL, 0, 0};
@@ -23,6 +25,8 @@ int main(int ac, char**av)
     map->character = 1;
     printf("%s", inventory(&player));
     // send_map(map);
+    init_server(&server);
+    start_multiplexing(&server);
     destroy_map(map, opts);
     return (0);
 }

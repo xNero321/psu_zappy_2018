@@ -6,6 +6,7 @@
 */
 
 #include <fcntl.h>
+#include <stdarg.h>
 #include "server.h"
 
 int send_message(int fd, const char *format, ...)
@@ -15,7 +16,7 @@ int send_message(int fd, const char *format, ...)
     if (fcntl(fd, F_GETFD) != 0)
         return (0);
     va_start(strs, format);
-    if (vdprintf(fd, format, args) <= 0) {
+    if (vdprintf(fd, format, strs) <= 0) {
         fprintf(stderr, "%s\n", "Error: Message cannot be sent to fd #%d", fd);
         return (0);
     }

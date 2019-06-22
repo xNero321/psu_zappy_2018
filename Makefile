@@ -17,7 +17,12 @@ SRC_SRV		=	main.c							\
 				./src/server/map.c				\
 				./src/server/send_map.c			\
 				./src/server/move_cmd.c			\
-				./src/server/info_cmd.c
+				./src/server/info_cmd.c			\
+				./src/server/server.c			\
+				./src/server/multiplexing.c		\
+				./src/server/message.c			\
+				./src/server/get_user.c			\
+				./src/server/list.c				
 
 OBJ_SRV		=	$(SRC_SRV:.c=.o)
 
