@@ -26,9 +26,20 @@ char *map_to_array(mapcell_t *map)
     return(ar_map);
 }
 
-void destroy_map(mapcell_t *map)
+void destroy_map(mapcell_t *map, options_serv_t opt)
 {
-    
+    mapcell_t *nextline = map;
+    mapcell_t *nextcell = map;
+
+    for (int y = 0; y < opt.height; y++) {
+        nextline = map->dir[DOWN];
+        for (int x = 0; x < opt.width; x++) {
+            nextcell = map->dir[RIGHT];
+            free(map);
+            map = nextcell;
+        }
+        map = nextline;
+    }
 }
 
 int send_map(mapcell_t *map) {
