@@ -25,9 +25,20 @@
         team_t *team;
         dir_t dir;
         socklen_t size;
+        int level;
+        uint inv[7];
         bool on_graph;
         bool is_connected;
+        uint ttl;
+        linked_buffer_t buff;
     } client_t;
+    
+    typedef linked_buffer_s
+    {
+        char buffer[2048],
+        char *head;
+        char *tail;
+    } linked_buffer_t;
     
     typedef enum
     {
@@ -46,7 +57,7 @@
         uint port;
         int epollfd;
         options_serv_t args;
-        client_t *cliets;
+        client_t *clients;
         int nb_players;
         int real_freq;
     } server_t;
