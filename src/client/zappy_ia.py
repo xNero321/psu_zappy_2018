@@ -31,4 +31,4 @@ def check_return_team(s, arg):
 def start_of_ia(s, arg):
     check_good_start(s)
     check_return_team(s, arg)
-    level1(s)
+    level1(s, info_ia)
