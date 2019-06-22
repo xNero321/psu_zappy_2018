@@ -23,6 +23,7 @@ void init_server(server_t *server)
     }
     server->clients = NULL;
     server->nb_players = 0;
+    printf("--------  SERVER INITIALISED -------\n");
     start_epoll(server);
 }
 
@@ -33,8 +34,7 @@ void init_server_socket(server_t *server, struct protoent *pe)
         exit(EXIT_FAIL);
     }
     server->sin.sin_family = AF_INET;
-    // A DEFINIR PLUS TARD
-    server->sin.sin_port = htons(PORT);
+    server->sin.sin_port = htons(server->args.port);
     server->sin.sin_addr.s_addr = INADDR_ANY;
 }
 
@@ -52,4 +52,5 @@ void start_epoll(server_t *server)
         fprintf(stderr, "Error: epoll_ctl");
         exit(EXIT_FAIL);
     }
+    printf("--------  EPOLL INITIALISED -------\n");
 }

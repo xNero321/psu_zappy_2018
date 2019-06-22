@@ -71,8 +71,8 @@ void events_distribution(server_t *server, int i)
         }
         list_push(&(server->clients), &client);
         send_message(client.sockfd, "WELCOME\n");
+        printf("IL FAUT CODER LE WORKER accepted");
     } else {
-        //call worker ?
-        ;
+        printf("IL FAUT CODER LE WORKER else");
     }
 }
