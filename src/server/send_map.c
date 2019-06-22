@@ -45,30 +45,14 @@ void destroy_map(mapcell_t *map, options_serv_t opt)
     free(opt.nameX);
 }
 
-int send_map(mapcell_t *map) {
-
-    int sockfd;
-    int ret;
-    struct sockaddr_in serverAddr;
-    int newSocket;
+void loop_packet(int sockfd, mapcell_t *map)
+{
     struct sockaddr_in newAddr;
+    int newSocket;
     socklen_t addr_size;
     char buffer[1024];
     char *buff_s;
 
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0)
-        perror_exit("[-]Error in connection.\n", 1);
-    memset(&serverAddr, '\0', sizeof(serverAddr));
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(PORT);
-    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-
-    ret = bind(sockfd, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
-    if (ret < 0)
-        perror_exit("[-]Error in binding.\n", 1);
-    if (listen(sockfd, 10) != 0)
-        printf("[-]Error in binding.\n");
     while (1) {
         newSocket = accept(sockfd, (struct sockaddr*)&newAddr, &addr_size);
         if(newSocket < 0)
@@ -83,5 +67,33 @@ int send_map(mapcell_t *map) {
         }
     }
     close(newSocket);
+}
+
+struct sockaddr_in init_socket(void)
+{
+    struct sockaddr_in serverAddr;
+
+    memset(&serverAddr, '\0', sizeof(serverAddr));
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(PORT);
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    return (serverAddr);
+}
+
+int send_map(mapcell_t *map) {
+
+    int sockfd;
+    int ret;
+    struct sockaddr_in serverAddr = init_socket();
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0)
+        perror_exit("[-]Error in connection.\n", 1);
+    ret = bind(sockfd, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
+    if (ret < 0)
+        perror_exit("[-]Error in binding.\n", 1);
+    if (listen(sockfd, 10) != 0)
+        printf("[-]Error in binding.\n");
+    loop_packet(sockfd, map);
 	return 0;
 }
