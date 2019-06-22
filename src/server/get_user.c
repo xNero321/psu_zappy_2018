@@ -5,6 +5,8 @@
 ** get_user.c
 */
 
+#include "server.h"
+
 void get_user(client_t *clt, server_t *server)
 {
     memset(clt, 0, sizeof(client_t));
@@ -15,6 +17,8 @@ void get_user(client_t *clt, server_t *server)
     clt->on_graph = false;
     clt->level = 1;
     clt->is_connected = false;
+    for (int i = 0; i < 7; i++)
+        clt->inv[i] = 0;
     clt->inv[FOOD] = 10;
     clt->ttl = 126;
 }

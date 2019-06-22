@@ -26,6 +26,11 @@ char *map_to_array(mapcell_t *map)
     return(ar_map);
 }
 
+void destroy_map(mapcell_t *map)
+{
+    for (mapcell_t *nextline = map->dir[3]; nextline; );
+}
+
 int send_map(mapcell_t *map) {
 
     int sockfd;

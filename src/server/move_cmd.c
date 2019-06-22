@@ -5,21 +5,21 @@
 ** move_cmd
 */
 
-#include "player.h"
+#include "server.h"
 
-char *forward(player_t *player)
+char *forward(client_t *player)
 {
     player->pos = player->pos->dir[player->dir];
     return ("ok");
 }
 
-char *right(player_t *player)
+char *right(client_t *player)
 {
     player->dir = (player->dir == 3) ? 0 : player->dir + 1;
     return ("ok");
 }
 
-char *left(player_t *player)
+char *left(client_t *player)
 {
     player->dir = (player->dir == 0) ? 3 : player->dir - 1;
     return ("ok");

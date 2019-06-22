@@ -5,12 +5,12 @@
 ** info_cmd
 */
 
-#include "player.h"
+#include "server.h"
 
 char *get_cellcontent(mapcell_t *cell, char *look)
 {
     char *tmp = (cell->character) ? "player" : "";
-    char item[8][9] = {"", "food", "linemate", "deraumere", "sibur", "mendiane",
+    char item[8][10] = {"", "food", "linemate", "deraumere", "sibur", "mendiane",
         "phiras", "thystame"};
 
     for (int it = 0; it < 7; it++) {
@@ -24,7 +24,7 @@ char *get_cellcontent(mapcell_t *cell, char *look)
     return (look);
 }
 
-char *get_line(char *look, int i, mapcell_t *cell, player_t *player)
+char *get_line(char *look, int i, mapcell_t *cell, client_t *player)
 {
     int left = (player->dir == 0) ? 3 : player->dir - 1;
     int right = (left + 2) % 4;
@@ -38,7 +38,7 @@ char *get_line(char *look, int i, mapcell_t *cell, player_t *player)
     return (look);
 }
 
-char *look(player_t *player)
+char *look(client_t *player)
 {
     char *look = "[";
     mapcell_t *line = player->pos;
@@ -52,15 +52,15 @@ char *look(player_t *player)
     return (look);
 }
 
-char *inventory(player_t *player)
+char *inventory(client_t *player)
 {
     char *items = "[";
-    char item[6][9] = {"linemate", "deraumere", "sibur", "mendiane",
+    char item[7][10] = {"food", "linemate", "deraumere", "sibur", "mendiane",
     "phiras", "thystame"};
 
-    for (int i = 0; i < 6; i++) {
-        asprintf(&items, "%s%s %d", items, item[i], player->items[i]);
-        if (i < 5)
+    for (int i = 0; i < 7; i++) {
+        asprintf(&items, "%s%s %d", items, item[i], player->inv[i]);
+        if (i < 6)
             asprintf(&items, "%s,", items);
         else
             asprintf(&items, "%s]", items);
