@@ -34,7 +34,7 @@ char** find_name(char** av)
     j = j + 1;
     int i = 0;
     for (; av[j][0] != '-'; j++) {
-        toto[i] = calloc(strlen(av[j]), sizeof(char));
+        toto[i] = calloc(strlen(av[j]) + 1, sizeof(char));
         strcpy(toto[i], av[j]);
         i++;
     }
