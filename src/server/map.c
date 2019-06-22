@@ -5,24 +5,24 @@
 ** map
 */
 
-#include "map.h"
+#include "server.h"
 
 mapcell_t *new_line(mapcell_t *map, int y)
 {
     mapcell_t *new = malloc(sizeof(mapcell_t));
     mapcell_t *tmp = map;
 
-    new->dir[0] = NULL;
-    new->dir[2] = NULL;
-    new->dir[3] = NULL;
+    new->dir[LEFT] = NULL;
+    new->dir[RIGHT] = NULL;
+    new->dir[DOWN] = NULL;
     new->x = 0;
     new->y = y;
-    for (; tmp && tmp->dir[3]; tmp = tmp->dir[3]);
-    new->dir[1] = tmp;
+    for (; tmp && tmp->dir[DOWN]; tmp = tmp->dir[DOWN]);
+    new->dir[UP] = tmp;
     if (!map)
         return (new);
     else {
-        tmp->dir[3] = new;
+        tmp->dir[DOWN] = new;
         return (map);
     }
 }
@@ -34,8 +34,8 @@ void fill_map(mapcell_t *map, options_serv_t *opt)
     mapcell_t *cell = line;
     item_t item;
 
-    for (int y = 0;  y < opt->height; line = line->dir[3], y++, cell = line)
-        for (int x = 0; x < opt->width; cell = cell->dir[2], x++)
+    for (int y = 0;  y < opt->height; line = line->dir[DOWN], y++, cell = line)
+        for (int x = 0; x < opt->width; cell = cell->dir[RIGHT], x++)
             for (int i = 0; i < 7; i++)
                 cell->obj[i] = (rand() % 10 > i + 2) ? i + 1 : 0;
 }
@@ -45,15 +45,15 @@ void new_cell(mapcell_t *map, int y, int x)
     mapcell_t *new = malloc(sizeof(mapcell_t));
     mapcell_t *tmp_cell = map;
 
-    new->dir[2] = NULL;
-    new->dir[3] = NULL;
+    new->dir[RIGHT] = NULL;
+    new->dir[DOWN] = NULL;
     new->x = x;
     new->y = y;
-    for (; tmp_cell && tmp_cell->dir[3]; tmp_cell = tmp_cell->dir[3]);
-    for (; tmp_cell && tmp_cell->dir[2]; tmp_cell = tmp_cell->dir[2]);
+    for (; tmp_cell && tmp_cell->dir[DOWN]; tmp_cell = tmp_cell->dir[DOWN]);
+    for (; tmp_cell && tmp_cell->dir[RIGHT]; tmp_cell = tmp_cell->dir[RIGHT]);
     if (tmp_cell)
-        tmp_cell->dir[2] = new;
-    new->dir[0] = tmp_cell;
+        tmp_cell->dir[RIGHT] = new;
+    new->dir[LEFT] = tmp_cell;
 }
 
 void link_map(mapcell_t *map, options_serv_t *opt)
@@ -61,22 +61,22 @@ void link_map(mapcell_t *map, options_serv_t *opt)
     mapcell_t *save = NULL;
     mapcell_t *last = NULL;
 
-    for (mapcell_t *prev = map; prev; prev = prev->dir[3]) {
+    for (mapcell_t *prev = map; prev; prev = prev->dir[DOWN]) {
         save = prev;
-        for (mapcell_t *line = prev->dir[3]; line; line = line->dir[2]) {
-            prev->dir[3] = line;
-            line->dir[1] = prev;
-            prev = (prev->dir[2]) ? prev->dir[2] : prev;
+        for (mapcell_t *line = prev->dir[DOWN]; line; line = line->dir[RIGHT]) {
+            prev->dir[DOWN] = line;
+            line->dir[UP] = prev;
+            prev = (prev->dir[RIGHT]) ? prev->dir[RIGHT] : prev;
         }
-        for (; prev && prev->dir[2]; prev = prev->dir[2]);
-        prev->dir[2] = save;
-        save->dir[0] = prev;
+        for (; prev && prev->dir[RIGHT]; prev = prev->dir[RIGHT]);
+        prev->dir[RIGHT] = save;
+        save->dir[LEFT] = prev;
         prev = save;
     }
-    for (last = map; last->dir[3]; last = last->dir[3], save = map);
-    for (int x = 0; x < opt->width; save = save->dir[2], last = last->dir[2]) {
-        save->dir[1] = last;
-        last->dir[3] = save;
+    for (last = map; last->dir[DOWN]; last = last->dir[DOWN], save = map);
+    for (int x = 0; x < opt->width; save = save->dir[RIGHT], last = last->dir[RIGHT]) {
+        save->dir[UP] = last;
+        last->dir[DOWN] = save;
         x++;
     }
 }
@@ -96,17 +96,17 @@ mapcell_t *create_map(options_serv_t *opt)
     // MAP DEBUG
     // mapcell_t *line = map;
     // mapcell_t *cell = line;
-    // for (int y = 0; y < opt->height; y++, line = line->dir[3]) {
+    // for (int y = 0; y < opt->height; y++, line = line->dir[DOWN]) {
     //     cell = line;
-    //     for (int x = 0; x < opt->width; x++, cell = cell->dir[2]) {
-    //         if (cell->dir[0]->x != cell->x - 1 || cell->dir[0]->y != cell->y)
-    //             printf("[%d,%d] left [%d,%d]\n", cell->x, cell->y, cell->dir[0]->x, cell->dir[0]->y);
-    //         if (cell->dir[1]->x != cell->x || cell->dir[1]->y != cell->y - 1)
-    //             printf("[%d,%d] up [%d,%d]\n", cell->x, cell->y, cell->dir[1]->x, cell->dir[1]->y);
-    //         if (cell->dir[2]->x != cell->x + 1 || cell->dir[2]->y != cell->y)
-    //             printf("[%d,%d] right [%d,%d]\n", cell->x, cell->y, cell->dir[2]->x, cell->dir[2]->y);
-    //         if (cell->dir[3]->x != cell->x || cell->dir[3]->y != cell->y + 1)
-    //             printf("[%d,%d] down [%d,%d]\n", cell->x, cell->y, cell->dir[3]->x, cell->dir[3]->y);
+    //     for (int x = 0; x < opt->width; x++, cell = cell->dir[RIGHT]) {
+    //         // if (cell->dir[LEFT]->x != cell->x - 1 || cell->dir[LEFT]->y != cell->y)
+    //         //     printf("[%d,%d] left [%d,%d]\n", cell->x, cell->y, cell->dir[LEFT]->x, cell->dir[LEFT]->y);
+    //         // if (cell->dir[UP]->x != cell->x || cell->dir[UP]->y != cell->y - 1)
+    //         //     printf("[%d,%d] up [%d,%d]\n", cell->x, cell->y, cell->dir[UP]->x, cell->dir[UP]->y);
+    //         // if (cell->dir[RIGHT]->x != cell->x + 1 || cell->dir[RIGHT]->y != cell->y)
+    //         //     printf("[%d,%d] right [%d,%d]\n", cell->x, cell->y, cell->dir[RIGHT]->x, cell->dir[RIGHT]->y);
+    //         // if (cell->dir[DOWN]->x != cell->x || cell->dir[DOWN]->y != cell->y + 1)
+    //         //     printf("[%d,%d] down [%d,%d]\n", cell->x, cell->y, cell->dir[DOWN]->x, cell->dir[DOWN]->y);
     //     printf("[%d,%d]", cell->x, cell->y);
     //     }
     //     printf("\n");

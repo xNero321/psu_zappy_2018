@@ -74,24 +74,11 @@ bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
     return (true);
 }
 
-void serv(int ac, char** av)
+void serv(int ac, char** av, options_serv_t *opts)
 {
-    options_serv_t opts = {0, 0, 0, NULL, 0, 0};
-    mapcell_t *map = NULL;
-    client_t player;
-
     if (ac == 2 && strcmp(av[1], "-help") == 0)
         print_usage_serv();
     else
-        if (!parse_args_serv(ac, av, &opts) || !check_opts_serv(opts))
+        if (!parse_args_serv(ac, av, opts) || !check_opts_serv(*opts))
             exit(84);
-    map = create_map(&opts);
-    player.pos = map;
-    player.dir = LEFT;
-    player.level = 2;
-    for (int i = 0; i < 7; i++)
-        player.inv[i] = 0;
-    map->character = 1;
-    printf("%s", inventory(&player));
-    // send_map(map);
 }

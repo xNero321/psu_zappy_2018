@@ -26,7 +26,7 @@ char *get_cellcontent(mapcell_t *cell, char *look)
 
 char *get_line(char *look, int i, mapcell_t *cell, client_t *player)
 {
-    int left = (player->dir == 0) ? 3 : player->dir - 1;
+    int left = (player->dir == LEFT) ? DOWN : player->dir - 1;
     int right = (left + 2) % 4;
 
     for (int x = 0; x < i; cell = cell->dir[left], x++);

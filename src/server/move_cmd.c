@@ -15,12 +15,12 @@ char *forward(client_t *player)
 
 char *right(client_t *player)
 {
-    player->dir = (player->dir == 3) ? 0 : player->dir + 1;
+    player->dir = (player->dir == DOWN) ? LEFT : player->dir + 1;
     return ("ok");
 }
 
 char *left(client_t *player)
 {
-    player->dir = (player->dir == 0) ? 3 : player->dir - 1;
+    player->dir = (player->dir == LEFT) ? DOWN : player->dir - 1;
     return ("ok");
 }
