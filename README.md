@@ -25,7 +25,7 @@
 \> $ make re
 
 ### Graphic
-**USAGE : ./zappy_graphic -p *port* -h *host***<br/>
+**USAGE : ./zappy_graphic *port* *host***<br/>
 * **port** is the port number<br/>
 * **host** is the host of the server; 127.0.0.1 by default<br/>
 
