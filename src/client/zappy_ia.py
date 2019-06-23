@@ -1,6 +1,6 @@
 #!/bin/env python3
 import socket
-from level1 import level1
+from level1 import level
 from sys import exit
 from sys import stderr
 
@@ -31,4 +31,4 @@ def check_return_team(s, arg):
 def start_of_ia(s, arg):
     check_good_start(s)
     check_return_team(s, arg)
-    level1(s, info_ia)
+    level(s, info_ia)
