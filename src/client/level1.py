@@ -97,6 +97,12 @@ def drop_all_inquentation(s, lvl, info_ia):
         socket_gestion.drop_object(s, 'linemate')
         socket_gestion.drop_object(s, 'deraumere')
         socket_gestion.drop_object(s, 'sibur')
+    if lvl == 3:
+        socket_gestion.drop_object(s, 'linemate')
+        socket_gestion.drop_object(s, 'linemate')
+        socket_gestion.drop_object(s, 'sibur')
+        socket_gestion.drop_object(s, 'phiras')
+        socket_gestion.drop_object(s, 'phiras')
     if lvl != 1:
         socket_gestion.broadcast(s, 'player:{}|level:{}'.format(info_ia.number, lvl))
         print('Waiting other player')

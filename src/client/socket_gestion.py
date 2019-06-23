@@ -22,7 +22,6 @@ def get_inventory(s):
     final = {}
     for x in result:
         final[x.split(' ')[1]] = int(x.split(' ')[2])
-    print(final)
     return final
 
 def go_forward(s):
