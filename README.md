@@ -1,12 +1,9 @@
 # ZAPPY #
 
-## Compilation
-
-\> $ make re
-
 ### Server
-
-**USAGE : ./zappy_server -p *port* -x *width* -y *height* -n *name1 name2 ...* -c *clientsNb* -f *freq***<br/>
+*Compilation :*
+```$ make re```<br/>
+*Usage :* ```./zappy_server -p port -x width -y height -n name1 name2 ... -c clientsNb -f freq```
 * **port** is the port number<br/>
 * **width** is the width of the world<br/>
 * **height** is the height of the world<br/>
@@ -14,20 +11,20 @@
 * **clientsNb** is the number of authorized clients per team<br/>
 * **freq** is the reciprocal of time unit for execution of actions<br/>
 
-\> $ make re
-
 ### Ai
-**USAGE : ./zappy_ai -p *port* -n *name* -h *machine***<br/>
+*Compilation :*
+```$ make re```<br/>
+*Usage :* ```./zappy_ai -p port -n name -h machine```<br/>
 * **port** is the port number<br/>
 * **name** is the name of the team<br/>
 * **machine** is the name of the machine; localhost by default
 
-\> $ make re
-
 ### Graphic
-**USAGE : ./zappy_graphic *host* *port***<br/>
+*Compilation :*
+```$ cd ./gui && make```<br/>
+*USAGE :* ```./zappy_gui host port```<br/>
+* **host** is the host of the server<br/>
 * **port** is the port number<br/>
-* **host** is the host of the server; 127.0.0.1 by default<br/>
 
 
 ## Gameplay
