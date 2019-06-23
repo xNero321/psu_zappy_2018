@@ -48,6 +48,8 @@ char *look(client_t *player, char *cmd, server_t *serv)
         look = get_line(look, i, line, player);
         endchar = (i < player->level) ? ',' : ']';
         asprintf(&look, "%s%c", look, endchar);
+        if (i == player->level)
+            asprintf(&look, "%s%c", look, '\n');
     }
     return (look);
 }

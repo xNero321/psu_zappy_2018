@@ -72,6 +72,7 @@ void events_distribution(server_t *server, int i)
         send_message(client.sockfd, "WELCOME\n");
     } else {
         manage_buffer(server, server->event[i].data.fd);
+        return;
     }
 }
 
@@ -95,7 +96,8 @@ void manage_buffer(server_t *server, int fd)
             send_message(client->sockfd, "ko\n");
             return;
         } else {
-            register_command(client, str);
+            //register_command(client, str);
+            printf("%s\n", exec_cmd(server, client, str));
             send_message(client->sockfd, exec_cmd(server, client, str));
             return;
         }
