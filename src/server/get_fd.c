@@ -4,7 +4,6 @@
 ** File description:
 ** get_fd.c
 */
-
 #include "server.h"
 #include "list.h"
 

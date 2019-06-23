@@ -4,7 +4,6 @@
 ** File description:
 ** exec_cmd
 */
-
 #include "server.h"
 
 char *exec_cmd(server_t *serv, client_t *player, char *cmd)
@@ -20,4 +19,15 @@ char *exec_cmd(server_t *serv, client_t *player, char *cmd)
             return (cmd_func[i](player, cmd, serv));
     }
     return ("ko\n");
+}
+
+void send_to_client(server_t *server, client_t *client, char *str)
+{
+    printf("------ COMMAND EXECUTION ------\n");
+    printf("CLIENT n°%d from team [%s]\n",
+    client->id, client->team->name);
+    printf("COMMAND: [%s]\n", str);
+    printf("OUTPUT: %s", exec_cmd(server, client, str));
+    printf("-------------------------------\n\n\n");
+    send_message(client->sockfd, exec_cmd(server, client, str));
 }

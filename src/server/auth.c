@@ -4,11 +4,10 @@
 ** File description:
 ** auth.c
 */
-
 #include "server.h"
 #include "list.h"
 
-void place_client_on_map(server_t *srv, client_t *client, team_t *team)
+void place_player(server_t *srv, client_t *client, team_t *team)
 {
     int x = rand() % srv->args.width;
     int y = rand() % srv->args.height;
@@ -32,7 +31,7 @@ void place_client_on_map(server_t *srv, client_t *client, team_t *team)
     send_message(client->sockfd, "ko\n");
 }
 
-void join_team(server_t *srv, client_t *client, char *str)
+void add_to_team(server_t *srv, client_t *client, char *str)
 {
     team_t *list = srv->args.teams;
     if (!strcmp(str, "GRAPHIC\n")) {
@@ -47,7 +46,7 @@ void join_team(server_t *srv, client_t *client, char *str)
             printf("client_num%d\n", client->team->free_slots);
             send_message(client->sockfd, "%d\n", \
             client->team->free_slots - 1);
-            place_client_on_map(srv, client, list);
+            place_player(srv, client, list);
             return ;
         }
     } while (list_next(&list));

@@ -81,14 +81,15 @@
     void get_team(server_t *server, int argc, char **argv);
     void init_server_socket(server_t *server, struct protoent *pe);
     void start_epoll(server_t *server);
+    void send_to_client(server_t *server, client_t *client, char *cmd);
     void get_user(client_t *clt, server_t *server);
     void manage_buffer(server_t *server, int fd);
     void init_buffer(linked_buffer_t *buff);
     client_t *client_fd(server_t *srv, int fd);
     int send_message(int fd, const char *format, ...);
     void events_distribution(server_t *server, int i);
-    void place_client_on_map(server_t *srv, client_t *client, team_t *team);
-    void join_team(server_t *srv, client_t *client, char *str);
+    void place_player(server_t *srv, client_t *client, team_t *team);
+    void add_to_team(server_t *srv, client_t *client, char *str);
     bool register_command(client_t *client, char *command);
     char *right(client_t *, char *, server_t *);
     char *forward(client_t *, char *, server_t *);

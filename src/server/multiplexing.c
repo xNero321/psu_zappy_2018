@@ -82,7 +82,6 @@ void manage_buffer(server_t *server, int fd)
 {
     client_t *client = client_fd(server, fd);
     char *str = NULL;
-    int i = 0;
     if (client == NULL)
         return;
     if (read_cmd(&client->buff, fd) == false)
@@ -93,18 +92,12 @@ void manage_buffer(server_t *server, int fd)
         if (str == NULL || (strcmp(str, "-1") == 0) == -1)
             return;
         if (!client->is_connected) {
-            join_team(server, client, str);
+            add_to_team(server, client, str);
         } else if (strcmp(str, "-1") == 0) {
             send_message(client->sockfd, "ko\n");
             return;
         } else {
-            printf("------ COMMAND EXECUTION ------\n");
-            printf("CLIENT n°%d from team [%s]\n",
-            client->id, client->team->name);
-            printf("COMMAND: [%s]\n", str);
-            printf("OUTPUT: %s", exec_cmd(server, client, str));
-            printf("-------------------------------\n\n\n");
-            send_message(client->sockfd, exec_cmd(server, client, str));
+            send_to_client(server, client, str);
             return;
         }
     }
