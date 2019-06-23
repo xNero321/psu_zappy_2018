@@ -18,6 +18,8 @@ Core::Core(char const *host, char const *port): _host(host), _port(port)
 
 Core::~Core()
 {
+    delete _map;
+    delete _teams;
 }
 
 void Core::init()
@@ -27,9 +29,9 @@ void Core::init()
 }
 
 void Core::gameloop()
-{    // Limit the framerate to 60 frames per second (this step is optional)
-    // The main loop - ends as soon as the window is closed
+{
     sf::Vector2i position;
+
     while (_renderWindow->isOpen())
     {
         sf::Event event;
@@ -93,8 +95,6 @@ void Core::displayMap()
             y++;
             _renderWindow->draw(sprite);
     }
-
-
 }
 
 void Core::displayItems()

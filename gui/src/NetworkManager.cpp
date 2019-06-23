@@ -73,7 +73,9 @@ void NetworkManager::readSocket()
     {
         std::cout << "Receiving chunk... ";
         bzero(buffer, 4056);
-        read(_sockfd, buffer, 4056);
+        int r = read(_sockfd, buffer, 4056);
+        if (r < 0)
+            exit(84);
         readStream << buffer;
         readData = readStream.str().find("\0") == std::string::npos;
 
@@ -103,7 +105,6 @@ void NetworkManager::parser(const std::string &command)
         else
             _parameters.push_back(temp);
     }
-    std::cout << "Executing " << _command << std::endl;
     this->_protocolfunc[_command]();
 }
 
@@ -129,7 +130,7 @@ bool NetworkManager::fct_bct()
 	int y = atoi(_parameters[1].c_str());
 	MapCell *cell = _core->_map->getACell(x, y);
     cell->getItems().clear();
-    //std::cout << "Filling cell at " << x<< "," << y <<std::endl;
+    std::cout << "Filling cell at " << x<< "," << y <<std::endl;
     cell->getItems().push_back(new Item(Item::ItemType::food, atoi(_parameters[2].c_str()), sf::Vector2f(x, y), "./assets/food.png"));
     cell->getItems().push_back(new Item(Item::ItemType::linemate, atoi(_parameters[3].c_str()), sf::Vector2f(x + 0.33, y), "./assets/linemate.png"));
     cell->getItems().push_back(new Item(Item::ItemType::deraumere, atoi(_parameters[4].c_str()), sf::Vector2f(x + 0.66, y), "./assets/deraumere.png"));
@@ -137,9 +138,8 @@ bool NetworkManager::fct_bct()
     cell->getItems().push_back(new Item(Item::ItemType::mendiane, atoi(_parameters[6].c_str()), sf::Vector2f(x + 0.33, y + 0.33), "./assets/mendiane.png"));
     cell->getItems().push_back(new Item(Item::ItemType::phiras, atoi(_parameters[7].c_str()), sf::Vector2f(x + 0.33, y + 0.66), "./assets/phiras.png"));
     cell->getItems().push_back(new Item(Item::ItemType::thystame, atoi(_parameters[8].c_str()), sf::Vector2f(x + 0.66, y), "./assets/thystame.png"));
-    //_core->_map->getACell(9, 7)->toString();
-
-	return true;}
+	return true;
+}
 
 bool NetworkManager::fct_sgt()
 {

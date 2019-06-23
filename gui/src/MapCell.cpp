@@ -44,4 +44,5 @@ std::string MapCell::getItemName(int type)
         case 6:
             return("THYSTAME");
     }
+    return ("");
 }

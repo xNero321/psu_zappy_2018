@@ -36,8 +36,8 @@ class Item {
 	private:
         ItemType _type;
         int _quantity;
-        std::string _path;
         sf::Vector2f _pos;
+        std::string _path;
 };
 
 #endif /* !ITEM_HPP_ */
