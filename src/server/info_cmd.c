@@ -56,16 +56,16 @@ char *look(client_t *player, char *cmd, server_t *serv)
 
 char *inventory(client_t *player, char *cmd, server_t *serv)
 {
-    char *items = "[ ";
+    char *items = "[";
     char item[7][10] = {"food", "linemate", "deraumere", "sibur", "mendiane",
     "phiras", "thystame"};
 
     for (int i = 0; i < 7; i++) {
         asprintf(&items, "%s%s %d", items, item[i], player->inv[i]);
         if (i < 6)
-            asprintf(&items, "%s, ", items);
+            asprintf(&items, "%s,", items);
         else
-            asprintf(&items, "%s ]\n", items);
+            asprintf(&items, "%s]\n", items);
     }
     return (items);
 }
