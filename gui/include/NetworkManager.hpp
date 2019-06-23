@@ -40,9 +40,28 @@ class NetworkManager {
         bool fct_bct();
         bool fct_tna();
         bool fct_pnw();
+        bool fct_pin();
         bool fct_ppo();
         bool fct_plv();
         bool fct_sgt();
+        bool fct_pex();
+        bool fct_pbc();
+        bool fct_pic();
+        bool fct_pie();
+        bool fct_pfk();
+        bool fct_pdr();
+        bool fct_pgt();
+        bool fct_pdi();
+        bool fct_enw();
+        bool fct_eht();
+        bool fct_ebo();
+        bool fct_edi();
+        bool fct_sst();
+        bool fct_seg();
+        bool fct_smg();
+        bool fct_suc();
+        bool fct_sbp();
+
         Core *_core;
         std::map<std::string, std::function<bool(void)>> _protocolfunc;
         int _sockfd;

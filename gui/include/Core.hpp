@@ -28,6 +28,7 @@ class Core {
         void gameloop();
         void displayMap();
         void displayItems();
+        void displayPlayers();
         const char *getHost() const {return _host;};
         const char *getPort() const { return _port; };
         NetworkManager *getNetworkManager() const { return _network; };

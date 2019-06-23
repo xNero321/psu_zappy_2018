@@ -10,17 +10,20 @@
 
 #include "Core.hpp"
 #include "MapCell.hpp"
+#include "Player.hpp"
 
 class MapCell;
 class Core;
+class Player;
 
 class Map {
 	public:
 		Map(): _w(0), _h(0){};
 		~Map(){};
-        void create(int w, int h, sf::RenderWindow *);
+        void create(int w, int h);
         int	getW() const { return _w; };
 	    int	getH() const { return _h; };
+		std::vector<Player *> &getPlayers() {return _player;};
         std::vector<MapCell *> &getCells() {
 			return _cell;
 		};
@@ -37,6 +40,7 @@ class Map {
 	private:
         int _w, _h;
         std::vector<MapCell *>	_cell;
+		std::vector<Player *>	_player;
 };
 
 #endif /* !MAP_HPP_ */

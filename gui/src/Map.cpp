@@ -7,7 +7,7 @@
 
 #include "Map.hpp"
 
-void Map::create(int w, int h, sf::RenderWindow *renderWindow)
+void Map::create(int w, int h)
 {
     _w = w;
 	_h = h;

@@ -41,6 +41,7 @@ void Core::gameloop()
         _renderWindow->clear();
         displayMap();
         displayItems();
+        displayPlayers();
         _renderWindow->display();
         _network->isDataAvailable();
     }
@@ -90,5 +91,23 @@ void Core::displayItems()
                 }
             }
 		}
+    }
+}
+
+void Core::displayPlayers()
+{
+    std::vector<Player *> &entities = _map->getPlayers();
+    for (const auto &i : entities)
+    {
+        sf::Texture texture;
+        sf::Sprite sprite;
+        texture.loadFromFile(i->getTextureToDisplay());
+        texture.setSmooth(true);
+        sprite.setTexture(texture);
+        sprite.setPosition(sf::Vector2f(i->getPosition().x * 90, i->getPosition().y * 90));
+        sprite.setScale(
+            90 / sprite.getLocalBounds().width,
+            90 / sprite.getLocalBounds().height);
+        _renderWindow->draw(sprite);
     }
 }

@@ -15,6 +15,7 @@ SRC	=	src/main.cpp			\
 		src/Map.cpp			\
 		src/MapCell.cpp			\
 		src/Item.cpp \
+		src/Player.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 
