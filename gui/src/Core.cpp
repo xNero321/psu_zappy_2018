@@ -72,6 +72,7 @@ void Core::displayInfoTails(sf::Vector2f pos)
     }
 }
 
+
 bool Core::displayInfoPlayer(sf::Vector2f pos)
 {
     std::vector<Player *> &entities = _map->getPlayers();

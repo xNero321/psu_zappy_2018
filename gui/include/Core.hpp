@@ -30,7 +30,6 @@ class Core {
         void displayItems();
         void displayInfoTails(sf::Vector2f pos);
         bool displayInfoPlayer(sf::Vector2f pos);
-        void displayPlayers();
         const char *getHost() const {return _host;};
         const char *getPort() const { return _port; };
         NetworkManager *getNetworkManager() const { return _network; };
