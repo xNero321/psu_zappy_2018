@@ -28,7 +28,7 @@
         char *head;
         char *tail;
     };
-    
+
     typedef enum {
         LEFT,
         UP,
@@ -37,10 +37,10 @@
     } dir_e;
 
     struct team_s
-	{
-		char *name;
-		unsigned int free_slots;
-	};
+    {
+        char *name;
+        unsigned int free_slots;
+    };
 
     struct server_s {
         int sockfd;
@@ -70,7 +70,7 @@
         unsigned int ttl;
         linked_buffer_t buff;
     };
-    
+
     void init_server(server_t *server);
     void init_server_socket(server_t *server, struct protoent *pe);
     void start_epoll(server_t *server);
@@ -92,5 +92,5 @@
     char *incantation(client_t *, char *, server_t *);
     char *broadcast(client_t *, char *, server_t *);
     char *exec_cmd(server_t *, client_t *, char *);
-    
+
 #endif /* !__SERVER_H_ */

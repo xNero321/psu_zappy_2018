@@ -10,8 +10,8 @@
 char *get_cellcontent(mapcell_t *cell, char *look)
 {
     char *tmp = (cell->character) ? "player" : "";
-    char item[8][10] = {"", "food", "linemate", "deraumere", "sibur", "mendiane",
-        "phiras", "thystame"};
+    char item[8][10] = {"", "food", "linemate", "deraumere", "sibur",
+    "mendiane", "phiras", "thystame"};
 
     for (int it = 0; it < 7; it++) {
         if (tmp[strlen(tmp) - 1] && tmp[strlen(tmp) - 1] != ','

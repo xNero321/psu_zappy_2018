@@ -29,7 +29,8 @@ void init_server(server_t *server)
 
 void init_server_socket(server_t *server, struct protoent *pe)
 {
-    if ((server->sockfd = socket(AF_INET, SOCK_STREAM, pe->p_proto)) == -1) {
+    server->sockfd = socket(AF_INET, SOCK_STREAM, pe->p_proto);
+    if (server->sockfd == -1) {
         perror("Socket: ");
         exit(EXIT_FAIL);
     }

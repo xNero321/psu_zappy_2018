@@ -8,7 +8,7 @@
 #ifndef LIST_H_
     #define LIST_H_
     #include <stdbool.h>
-    
+
     typedef struct list_s
     {
         struct list_s *next;

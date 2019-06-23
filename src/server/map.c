@@ -73,25 +73,27 @@ void link_map(mapcell_t *map, options_serv_t *opt)
         save->dir[LEFT] = prev;
         prev = save;
     }
-    for (last = map; last->dir[DOWN]; last = last->dir[DOWN], save = map);
-    for (int x = 0; x < opt->width; save = save->dir[RIGHT], last = last->dir[RIGHT]) {
-        save->dir[UP] = last;
-        last->dir[DOWN] = save;
-        x++;
-    }
 }
 
 mapcell_t *create_map(options_serv_t *opt)
 {
     mapcell_t *map = NULL;
+    mapcell_t *save = NULL;
+    mapcell_t *last = NULL;
 
     for (int y = 0; y < opt->height; y++) {
         map = new_line(map, y);
-        for (int x = 1; x < opt->width; x++) {
+        for (int x = 1; x < opt->width; x++)
             new_cell(map, y, x);
-        }
     }
     link_map(map, opt);
+    for (last = map; last->dir[DOWN]; last = last->dir[DOWN], save = map);
+    for (int x = 0; x < opt->width;
+    save = save->dir[RIGHT], last = last->dir[RIGHT]) {
+        save->dir[UP] = last;
+        last->dir[DOWN] = save;
+        x++;
+    }
     fill_map(map, opt);
     // MAP DEBUG
     // mapcell_t *line = map;

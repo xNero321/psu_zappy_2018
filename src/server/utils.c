@@ -7,9 +7,9 @@
 
 #include "my_zappy.h"
 
-bool str_to_uint16(const char* str, uint16_t* res)
+bool str_to_uint16(const char *str, uint16_t *res)
 {
-    char* end;
+    char *end;
     errno = 0;
     intmax_t val = strtoimax(str, &end, 10);
     if (errno == ERANGE || val < 0 || val > UINT16_MAX || end == str ||
@@ -22,7 +22,7 @@ bool str_to_uint16(const char* str, uint16_t* res)
 void print_usage_serv(void)
 {
     printf("USAGE: ./zappy_server -p port -x width -y height -n name1 name2 "
-           "... -c clientsNb -f freq\n");
+        "... -c clientsNb -f freq\n");
     printf(
         "\tport\t\tis the port number\n\twidth\t\tis the width of the "
         "world\n\theight\t\tis the height of the world\n\tnameX\t\tis the name "
@@ -41,7 +41,7 @@ bool check_opts_serv(options_serv_t opts)
     return (false);
 }
 
-void perror_exit(char* str, int error)
+void perror_exit(char *str, int error)
 {
     perror(str);
     exit(error);

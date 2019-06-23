@@ -23,7 +23,7 @@ char *map_to_array(mapcell_t *map)
         }
         asprintf(&ar_map, "%s\n", ar_map);
     }
-    return(ar_map);
+    return (ar_map);
 }
 
 void destroy_map(mapcell_t *map, options_serv_t opt)
@@ -51,16 +51,16 @@ void loop_packet(int sockfd, mapcell_t *map)
     int newSocket;
     socklen_t addr_size;
     char buffer[1024];
-    char *buff_s;
 
-    while (1) {
-        newSocket = accept(sockfd, (struct sockaddr*)&newAddr, &addr_size);
-        if(newSocket < 0)
+    for (char *buff_s = NULL; 1;)
+        newSocket = accept(sockfd, (struct sockaddr *)&newAddr, &addr_size);
+        if (newSocket < 0)
             exit(1);
         close(sockfd);
         buff_s = map_to_array(map);
         while (1) {
-            sendto(newSocket, buff_s, sizeof(buff_s), 0, (struct sockaddr*)&newAddr, addr_size);
+            sendto(newSocket, buff_s, sizeof(buff_s), 0,
+            (struct sockaddr *)&newAddr, addr_size);
             recv(newSocket, buffer, 1024, 0);
             send(newSocket, buffer, strlen(buffer), 0);
             bzero(buffer, sizeof(buffer));
@@ -89,11 +89,11 @@ int send_map(mapcell_t *map) {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)
         perror_exit("[-]Error in connection.\n", 1);
-    ret = bind(sockfd, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
+    ret = bind(sockfd, (struct sockaddr *)&serverAddr, sizeof(serverAddr));
     if (ret < 0)
         perror_exit("[-]Error in binding.\n", 1);
     if (listen(sockfd, 10) != 0)
         printf("[-]Error in binding.\n");
     loop_packet(sockfd, map);
-	return 0;
+    return (0);
 }

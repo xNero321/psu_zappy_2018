@@ -9,7 +9,7 @@
 
 server_t server;
 
-int main(int ac, char**av)
+int main(int ac, char **av)
 {
     mapcell_t *map = NULL;
 

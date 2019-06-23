@@ -8,31 +8,34 @@
 #include <getopt.h>
 #include "server.h"
 
-static struct option long_options[] = {{"port", required_argument, 0, 'p'},
-                                       {"name", required_argument, 0, 'n'},
-                                       {"width", required_argument, 0, 'x'},
-                                       {"height", required_argument, 0, 'y'},
-                                       {"clientsNb", required_argument, 0, 'c'},
-                                       {"freq", required_argument, 0, 'f'},
-                                       {0, 0, 0, 0}};
+static struct option long_options[] = {
+{"port", required_argument, 0, 'p'},
+{"name", required_argument, 0, 'n'},
+{"width", required_argument, 0, 'x'},
+{"height", required_argument, 0, 'y'},
+{"clientsNb", required_argument, 0, 'c'},
+{"freq", required_argument, 0, 'f'},
+{0, 0, 0, 0}};
 
 int size_tab(char **av)
 {
     int j;
     int i = 0;
+
     for (j = 0; strcmp(av[j], "-n") != 0; j++);
     for (; av[j] != NULL; j++)
         i++;
     return (i);
 }
 
-char** find_name(char** av)
+char **find_name(char **av)
 {
-    char** toto = calloc(size_tab(av), sizeof(char*));
+    char **toto = calloc(size_tab(av), sizeof(char *));
     int j;
+    int i = 0;
+
     for (j = 0; strcmp(av[j], "-n") != 0; j++);
     j = j + 1;
-    int i = 0;
     for (; av[j][0] != '-'; j++) {
         toto[i] = calloc(strlen(av[j]) + 1, sizeof(char));
         strcpy(toto[i], av[j]);
@@ -41,7 +44,7 @@ char** find_name(char** av)
     return (toto);
 }
 
-bool analyse_opt(char** av, options_serv_t *opts, int8_t opt)
+bool analyse_opt(char **av, options_serv_t *opts, int8_t opt)
 {
     switch (opt) {
         case 'p': if (!str_to_uint16(optarg, &(opts->port)))
@@ -62,19 +65,19 @@ bool analyse_opt(char** av, options_serv_t *opts, int8_t opt)
     return (true);
 }
 
-bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
+bool parse_args_serv(int ac, char *av[], options_serv_t *opts)
 {
     int32_t idx = 0;
 
-    for (int8_t opt = 0; opt != -1; opt = 
-        getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &idx)) {
+    for (int8_t opt = 0; opt != -1;
+    opt = getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &idx)) {
         if (!analyse_opt(av, opts, opt))
             return (false);
     }
     return (true);
 }
 
-void serv(int ac, char** av, options_serv_t *opts)
+void serv(int ac, char **av, options_serv_t *opts)
 {
     if (ac == 2 && strcmp(av[1], "-help") == 0)
         print_usage_serv();

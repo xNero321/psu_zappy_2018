@@ -9,7 +9,7 @@ NAME_CLIENT	=	zappy_ai
 
 NAME_SRV	=	zappy_server
 
-CFLAGS		=	-I./include/ -g3 -D_GNU_SOURCE=1 
+CFLAGS		=	-I./include/ -g3 -D_GNU_SOURCE=1
 
 SRC_SRV		=	main.c							\
 				./src/server/pars_arg_serv.c	\

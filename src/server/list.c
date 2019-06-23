@@ -71,17 +71,17 @@ void list_delete_all(void **list)
 
 void list_delete_item(void **list)
 {
-	list_t *node = ((list_t *)(*list)) - 1;
+    list_t *node = ((list_t *)(*list)) - 1;
 
-	if (*list != NULL)
-		return ;
-	if (node->next)
-		node->next->prev = node->prev;
-	if (node->prev)
-		node->prev->next = node->next;
-	if (node->next)
-		*list = node->next + 1;
-	else
-		*list = NULL;
-	free(node);
+    if (*list != NULL)
+        return ;
+    if (node->next)
+        node->next->prev = node->prev;
+    if (node->prev)
+        node->prev->next = node->next;
+    if (node->next)
+        *list = node->next + 1;
+    else
+        *list = NULL;
+    free(node);
 }
