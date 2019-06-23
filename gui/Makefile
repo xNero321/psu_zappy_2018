@@ -12,10 +12,13 @@ CC	=	g++
 SRC	=	src/main.cpp			\
 		src/Core.cpp			\
 		src/NetworkManager.cpp			\
+		src/Map.cpp			\
+		src/MapCell.cpp			\
+		src/Item.cpp \
 
 OBJ	=	$(SRC:.cpp=.o)
 
-CXXFLAGS  =	-I./include/ -W -Wall -Wextra -std=c++11
+CXXFLAGS  =	-I./include/ -W -Wall -Wextra -std=c++14
 
 all:		$(NAME)
 

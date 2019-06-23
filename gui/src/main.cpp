@@ -12,6 +12,6 @@ int main(int argc, char const *argv[])
     if (argc != 3)
         return 84;
     Core *core = new Core(argv[1], argv[2]);
-    core->gameloop();
+    core->init();
     return 0;
 }

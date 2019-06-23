@@ -9,21 +9,33 @@
 #define CORE_HPP_
 
 #include <SFML/Graphics.hpp>
+#include "Map.hpp"
 #include "NetworkManager.hpp"
 #include <iostream>
+#include "Teams.hpp"
+
+class NetworkManager;
+class Map;
+class Teams;
 
 class Core {
 	public:
         Core(char const *host, char const *port);
         ~Core();
+        void init();
         void gameloop();
+        void displayMap();
         const char *getHost() const {return _host;};
         const char *getPort() const { return _port; };
         NetworkManager *getNetworkManager() const { return _network; };
+        sf::RenderWindow *getRenderWindow() const {return _renderWindow;};
+        Map *_map;
+        Teams * _teams;
+        NetworkManager *_network;
 
     protected:
 	private:
-        NetworkManager *_network;
+        sf::RenderWindow *_renderWindow;
         char const *_host;
         char const *_port;
 };
