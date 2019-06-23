@@ -11,14 +11,14 @@ char *forward(client_t *player, char *cmd, server_t *serv)
 {
     int i = 0;
 
-    player->pos->character--;
+    player->pos->character -= 1;
     for (; player->pos->players[i] != player; i++);
     for (; i < player->pos->character; i++)
         player->pos->players[i] = player->pos->players[i + 1];
     player->pos->players = realloc(player->pos->players,
     player->pos->character * sizeof(client_t *));
     player->pos = player->pos->dir[player->dir];
-    player->pos->character++;
+    player->pos->character += 1;
     player->pos->players = realloc(player->pos->players,
     player->pos->character * sizeof(client_t *));
     player->pos->players[player->pos->character - 1] = player;
