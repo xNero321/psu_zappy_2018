@@ -16,10 +16,10 @@ char *take(client_t *player, char *cmd, server_t *serv)
     for (int i = 0; i < 7; i++) {
         if (strcmp(&cmd[5], item[i]) == 0 && player->pos->obj[i] != 0) {
             player->inv[i]++;
-            return ("ok");
+            return ("ok\n");
         }
     }
-    return ("ko");
+    return ("ko\n");
 }
 
 char *set(client_t *player, char *cmd, server_t *serv)
@@ -31,8 +31,8 @@ char *set(client_t *player, char *cmd, server_t *serv)
     for (int i = 0; i < 7; i++) {
         if (strcmp(&cmd[4], item[i]) == 0 && player->inv[i] > 0) {
             player->pos->obj[i] = i + 1;
-            return ("ok");
+            return ("ok\n");
         }
     }
-    return ("ko");
+    return ("ko\n");
 }

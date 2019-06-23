@@ -20,5 +20,5 @@ char *exec_cmd(server_t *serv, client_t *player, char *cmd)
         if (strncmp(cmd_name[i], cmd, strlen(cmd_name[i])) == 0)
             return (cmd_func[i](player, cmd, serv));
     }
-    return ("ko");
+    return ("ko\n");
 }

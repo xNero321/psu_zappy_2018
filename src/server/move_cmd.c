@@ -22,23 +22,32 @@ char *forward(client_t *player, char *cmd, server_t *serv)
     player->pos->players = realloc(player->pos->players,
     player->pos->character * sizeof(client_t *));
     player->pos->players[player->pos->character - 1] = player;
-    return ("ok");
+    return ("ok\n");
 }
 
 char *right(client_t *player, char *cmd, server_t *serv)
 {
     player->dir = (player->dir == DOWN) ? LEFT : player->dir + 1;
-    return ("ok");
+    return ("ok\n");
 }
 
 char *left(client_t *player, char *cmd, server_t *serv)
 {
     player->dir = (player->dir == LEFT) ? DOWN : player->dir - 1;
-    return ("ok");
+    return ("ok\n");
 }
 
 char *eject(client_t *player, char *cmd, server_t *serv)
 {
     
-    return ("ko");
+    if (player->pos->character == 1)
+        return ("ko\n");
+    for (int i = 0; i < player->pos->character; i++) {
+        if (player->pos->players[i] != player) {
+            player->pos->players[i] = player->dir;
+            forward(player->pos->players[i], "forward", serv);
+            send_message(player->sockfd, "eject: \n");
+        }
+    }
+    return ("ok\n");
 }

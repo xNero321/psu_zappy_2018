@@ -72,6 +72,6 @@ char *connect_nbr(client_t *player, char *cmd, server_t *serv)
 {
     char *slots = "";
 
-    asprintf(&slots, "%d", serv->args.clientsNb - serv->nb_players);
+    asprintf(&slots, "%d\n", serv->args.clientsNb - serv->nb_players);
     return (slots);
 }

@@ -9,7 +9,7 @@
 
 char *my_fork(client_t *player, char *cmd, server_t *serv)
 {
-    return ("ko");
+    return ("ko\n");
 }
 
 char *incantation(client_t *player, char *cmd, server_t *serv)
@@ -21,21 +21,21 @@ char *incantation(client_t *player, char *cmd, server_t *serv)
 
     for (int i = 1; i < 8; i++) {
         if (player->inv[i - 1] < requirements[player->level - 1][i])
-            return ("ko");
+            return ("ko\n");
     }
     for (int i = 0; i < player->pos->character; i++) {
         if (player->pos->players[i]->level == player->level)
             requirements[player->level - 1][0]--;
         if (requirements[player->level - 1][0] == 0) {
             player->level++;
-            asprintf(&response, "%s%d", response, player->level);
+            asprintf(&response, "%s%d\n", response, player->level);
             return (response);
         }
     }
-    return ("ko");
+    return ("ko\n");
 }
 
 char *broadcast(client_t *player, char *cmd, server_t *serv)
 {
-    return ("ko");
+    return ("ko\n");
 }
