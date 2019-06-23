@@ -37,9 +37,20 @@ void Core::gameloop()
         {
             if (event.type == sf::Event::Closed)
                 _renderWindow->close();
-            if (event.type == sf::Event::MouseLeft) {
-                position = sf::Mouse::getPosition();
-                displayInfoTails(position)
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    // get the current mouse position in the window
+                    sf::Vector2i pixelPos(event.mouseButton.x, event.mouseButton.y);
+
+                        // convert it to world coordinates
+                    sf::Vector2f worldPos = _renderWindow->mapPixelToCoords(pixelPos);
+                    std::cout << "the right button was pressed" << std::endl;
+                    std::cout << "mouse x: " << worldPos.x << std::endl;
+                    std::cout << "mouse y: " << worldPos.y << std::endl;
+                    displayInfoTails(worldPos);
+                }
             }
         }
         _renderWindow->clear();
@@ -51,18 +62,17 @@ void Core::gameloop()
     }
 }
 
-void Core::displayInfoTails(sf::Vector2i pos)
+void Core::displayInfoTails(sf::Vector2f pos)
 {
-    std::vector<MapCell *> &entities = _map->getCells();
-    int y = 0;
-    for (const auto &i : entities) {
-        if ((i->getPos().x - 1) * 90) + 90 <= pos.x  && (i->getPos().x * 90) + 90 >= pos.x  && ((i->getPos().y - 1) * 90) + 90 >= pos.y && (i->getPos().y * 90) + 90 <= pos.y) {
-                std::cout << i->getPos().x << ", " << i->getPos().y << std::endl;
+    for (int y = 0; y < _map->getH(); ++y) {
+        for (int x = 0; x < _map->getW(); ++x) {
+            if (((_map->getACell(x, y)->getPos().x - 1) * 90) + 90 <= pos.x &&
+                (_map->getACell(x, y)->getPos().x * 90) + 90 >= pos.x &&
+                ((_map->getACell(x, y)->getPos().y - 1) * 90) + 90 <= pos.y &&
+                (_map->getACell(x, y)->getPos().y * 90) + 90 >= pos.y)
+                _map->getACell(x, y)->toString();
         }
-        y++;
     }
-   
-
 }
 
 void Core::displayMap()
@@ -89,8 +99,6 @@ void Core::displayMap()
 
 void Core::displayItems()
 {
-    std::vector<MapCell *> &entities = _map->getCells();
-
     for (int y = 0; y < _map->getH(); ++y) {
 		for (int x = 0; x < _map->getW(); ++x) {
 			std::vector<Item *> &items = _map->getACell(x, y)->getItems();
