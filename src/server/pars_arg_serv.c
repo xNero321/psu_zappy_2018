@@ -62,15 +62,7 @@ bool analyse_opt(char** av, options_serv_t *opts, int8_t opt,
     return (true);
 }
 
-<<<<<<< Updated upstream
-bool parse_args_serv(int ac, char *av[], options_serv_t *opts)
-{
-    int32_t idx = 0;
 
-    for (int8_t opt = 0; opt != -1;
-    opt = getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &idx)) {
-        if (!analyse_opt(av, opts, opt))
-=======
 bool parse_args_serv(int ac, char* av[], options_serv_t* opts,
     server_t *server)
 {
@@ -79,17 +71,12 @@ bool parse_args_serv(int ac, char* av[], options_serv_t* opts,
     for (int8_t opt = 0; opt != -1; opt =
         getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &idx)) {
         if (!analyse_opt(av, opts, opt, server, ac))
->>>>>>> Stashed changes
             return (false);
     }
     return (true);
 }
 
-<<<<<<< Updated upstream
-void serv(int ac, char **av, options_serv_t *opts)
-=======
 void serv(int ac, char** av, options_serv_t *opts, server_t *server)
->>>>>>> Stashed changes
 {
     if (ac == 2 && strcmp(av[1], "-help") == 0)
         print_usage_serv();

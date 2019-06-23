@@ -27,7 +27,8 @@ SRC_SRV		=	main.c							\
 				./src/server/exec_cmd.c			\
 				./src/server/get_fd.c			\
 				./src/server/read_cmds.c		\
-				./src/server/auth.c
+				./src/server/auth.c				\
+				./src/server/stats_cmd.c
 OBJ_SRV		=	$(SRC_SRV:.c=.o)
 
 all:			$(NAME_SRV)

@@ -90,7 +90,6 @@
     void place_client_on_map(server_t *srv, client_t *client, team_t *team);
     void join_team(server_t *srv, client_t *client, char *str);
     bool register_command(client_t *client, char *command);
-    char *inventory(client_t *);
     char *right(client_t *, char *, server_t *);
     char *forward(client_t *, char *, server_t *);
     char *left(client_t *, char *, server_t *);

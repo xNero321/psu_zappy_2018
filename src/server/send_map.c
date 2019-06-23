@@ -52,7 +52,7 @@ void loop_packet(int sockfd, mapcell_t *map)
     socklen_t addr_size;
     char buffer[1024];
 
-    for (char *buff_s = NULL; 1;)
+    for (char *buff_s = NULL; 1;) {
         newSocket = accept(sockfd, (struct sockaddr *)&newAddr, &addr_size);
         if (newSocket < 0)
             exit(1);
