@@ -259,6 +259,7 @@ bool NetworkManager::fct_pgt()
 
 bool NetworkManager::fct_pdi()
 {
+    std::cout << "Player " << _parameters[3] << " Left the server." << std::endl;
     std::vector<Player *> &players = _core->_map->getPlayers();
     for (size_t i = 0; i < players.size(); ++i) {
 		if (players[i]->getNumber() == atoi(_parameters[0].c_str())) {
@@ -339,5 +340,6 @@ void NetworkManager::init(const char *host, const char *port)
     if (connect(_sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
         std::cerr << "Failed to connect to " << host << ":" << port << std::endl;
+        exit(84);
     }
 }
