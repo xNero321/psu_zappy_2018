@@ -1,6 +1,9 @@
 # ZAPPY #
 
 ## Compilation
+
+\> $ make re
+
 ### Server
 
 **USAGE : ./zappy_server -p *port* -x *width* -y *height* -n *name1 name2 ...* -c *clientsNb* -f *freq***<br/>
