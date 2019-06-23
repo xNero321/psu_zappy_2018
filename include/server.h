@@ -51,6 +51,7 @@
         int epollfd;
         options_serv_t args;
         client_t *clients;
+        mapcell_t *map;
         int nb_players;
         int real_freq;
     };
@@ -58,6 +59,7 @@
     struct client_s {
         int id;
         int sockfd;
+        char *cmd_queue[1024];
         mapcell_t *pos;
         struct sockaddr_in cin;
         team_t *team;
@@ -70,15 +72,25 @@
         unsigned int ttl;
         linked_buffer_t buff;
     };
-
+    void serv(int ac, char** av, options_serv_t *opts, server_t *server);
     void init_server(server_t *server);
+    bool parse_args_serv(int ac, char* av[], options_serv_t* opts,
+        server_t *server);
+    bool analyse_opt(char** av, options_serv_t *opts, int8_t opt,
+        server_t *server, int ac);
+    void get_team(server_t *server, int argc, char **argv);
     void init_server_socket(server_t *server, struct protoent *pe);
     void start_epoll(server_t *server);
     void get_user(client_t *clt, server_t *server);
+    void manage_buffer(server_t *server, int fd);
     void init_buffer(linked_buffer_t *buff);
+    client_t *client_fd(server_t *srv, int fd);
     int send_message(int fd, const char *format, ...);
     void events_distribution(server_t *server, int i);
-
+    void place_client_on_map(server_t *srv, client_t *client, team_t *team);
+    void join_team(server_t *srv, client_t *client, char *str);
+    bool register_command(client_t *client, char *command);
+    char *inventory(client_t *);
     char *right(client_t *, char *, server_t *);
     char *forward(client_t *, char *, server_t *);
     char *left(client_t *, char *, server_t *);

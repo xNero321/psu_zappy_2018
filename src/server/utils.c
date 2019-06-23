@@ -34,8 +34,8 @@ void print_usage_serv(void)
 
 bool check_opts_serv(options_serv_t opts)
 {
-    if (opts.nameX != NULL && opts.width != 0 && opts.height != 0 &&
-        opts.clientsNb != 0 && opts.freq != 0 && opts.port != 0) {
+    if (opts.nameX != NULL && opts.width != 0 && opts.height != 0
+        && opts.freq != 0 && opts.port != 0) {
         return (true);
     }
     return (false);

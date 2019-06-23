@@ -24,7 +24,7 @@
 
     struct mapcell_s {
         item_t obj[7];
-        char character;
+        int character;
         int x;
         int y;
         mapcell_t *dir[4];

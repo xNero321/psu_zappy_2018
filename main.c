@@ -13,11 +13,11 @@ int main(int ac, char **av)
 {
     mapcell_t *map = NULL;
 
-    serv(ac, av, &server.args);
-    map = create_map(&server.args);
+    serv(ac, av, &server.args, &server);
+    server.map = create_map(&server.args);
     // send_map(map);
-    // init_server(&server);
-    // start_multiplexing(&server);
+    init_server(&server);
+    start_multiplexing(&server);
     destroy_map(map, server.args);
     return (0);
 }

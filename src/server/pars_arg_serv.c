@@ -7,6 +7,7 @@
 
 #include <getopt.h>
 #include "server.h"
+#include "list.h"
 
 static struct option long_options[] = {
 {"port", required_argument, 0, 'p'},
@@ -28,29 +29,25 @@ int size_tab(char **av)
     return (i);
 }
 
-char **find_name(char **av)
+void get_team(server_t *server, int argc, char **argv)
 {
-    char **toto = calloc(size_tab(av), sizeof(char *));
-    int j;
-    int i = 0;
+    team_t team;
 
-    for (j = 0; strcmp(av[j], "-n") != 0; j++);
-    j = j + 1;
-    for (; av[j][0] != '-'; j++) {
-        toto[i] = calloc(strlen(av[j]) + 1, sizeof(char));
-        strcpy(toto[i], av[j]);
-        i++;
+    optind--;
+    for ( ; optind < argc && *argv[optind] != '-'; optind++){
+        team.name = argv[optind];
+        list_push(&server->args.teams, &team);
     }
-    return (toto);
 }
 
-bool analyse_opt(char **av, options_serv_t *opts, int8_t opt)
+bool analyse_opt(char** av, options_serv_t *opts, int8_t opt,
+    server_t *server, int ac)
 {
     switch (opt) {
         case 'p': if (!str_to_uint16(optarg, &(opts->port)))
                     return false;
             break;
-        case 'n': opts->nameX = find_name(av);
+        case 'n': get_team(server, ac, av);
             break;
         case 'x': opts->width = atoi(optarg);
             break;
@@ -65,6 +62,7 @@ bool analyse_opt(char **av, options_serv_t *opts, int8_t opt)
     return (true);
 }
 
+<<<<<<< Updated upstream
 bool parse_args_serv(int ac, char *av[], options_serv_t *opts)
 {
     int32_t idx = 0;
@@ -72,16 +70,32 @@ bool parse_args_serv(int ac, char *av[], options_serv_t *opts)
     for (int8_t opt = 0; opt != -1;
     opt = getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &idx)) {
         if (!analyse_opt(av, opts, opt))
+=======
+bool parse_args_serv(int ac, char* av[], options_serv_t* opts,
+    server_t *server)
+{
+    int32_t idx = 0;
+
+    for (int8_t opt = 0; opt != -1; opt =
+        getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &idx)) {
+        if (!analyse_opt(av, opts, opt, server, ac))
+>>>>>>> Stashed changes
             return (false);
     }
     return (true);
 }
 
+<<<<<<< Updated upstream
 void serv(int ac, char **av, options_serv_t *opts)
+=======
+void serv(int ac, char** av, options_serv_t *opts, server_t *server)
+>>>>>>> Stashed changes
 {
     if (ac == 2 && strcmp(av[1], "-help") == 0)
         print_usage_serv();
     else
-        if (!parse_args_serv(ac, av, opts) || !check_opts_serv(*opts))
+        if (!parse_args_serv(ac, av, opts, server)) {
+            printf("%s\n", "mange t mort");
             exit(84);
+        }
 }

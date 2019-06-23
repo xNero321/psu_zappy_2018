@@ -8,8 +8,8 @@
 #include <stddef.h>
 #include <sys/time.h>
 #include "list.h"
+#include "read_cmds.h"
 #include "server.h"
-
 
 long long get_time(void)
 {
@@ -25,7 +25,7 @@ void multiplexing_loop(server_t *server)
 {
     int fd = 0;
     long long t_b = get_time();
-    long long t_e = 0;
+    static long long t_e = 0;
     const long long to = (t_e) ? (t_b + (server->args.freq - (t_e - t_b)))
     : (t_b + server->args.freq);
 
@@ -71,8 +71,28 @@ void events_distribution(server_t *server, int i)
         }
         list_push(&(server->clients), &client);
         send_message(client.sockfd, "WELCOME\n");
-        printf("IL FAUT CODER LE WORKER accepted");
     } else {
-        printf("IL FAUT CODER LE WORKER else");
+        manage_buffer(server, server->event[i].data.fd);
+    }
+}
+
+void manage_buffer(server_t *server, int fd)
+{
+    client_t *client = client_fd(server, fd);
+    char *str = NULL;
+    if (client == NULL)
+        return;
+    if (circular_buffer_read(&client->buff, fd) == false)
+        //disconnect_client;
+        return;
+    while (1) {
+        str = circular_buffer_get_to(&client->buff, "\n");
+        if (str == NULL || (strcmp(str, "-1") == 0) == -1)
+            return;
+        if (!client->is_connected) {
+            join_team(server, client, str);
+       } else {
+            register_command(client, str);
+        }
     }
 }
