@@ -22,8 +22,13 @@ class Item {
             phiras,
             thystame,
         };
-		Item(ItemType type, int quantity, sf::Vector2f pos);
+		Item(ItemType type, int quantity, sf::Vector2f pos, std::string);
 		~Item();
+        ItemType getType() const {return _type;};
+        std::string getTexturePath() const {return _path;};
+        int getQuantity() const {return _quantity;};
+        sf::Vector2f getPos() const {return _pos;};
+
 
 
 
@@ -31,7 +36,7 @@ class Item {
 	private:
         ItemType _type;
         int _quantity;
-        sf::Texture *_texture;
+        std::string _path;
         sf::Vector2f _pos;
 };
 

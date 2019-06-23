@@ -13,10 +13,12 @@
 #include "NetworkManager.hpp"
 #include <iostream>
 #include "Teams.hpp"
+#include "Item.hpp"
 
 class NetworkManager;
 class Map;
 class Teams;
+class Items;
 
 class Core {
 	public:
@@ -25,6 +27,7 @@ class Core {
         void init();
         void gameloop();
         void displayMap();
+        void displayItems();
         const char *getHost() const {return _host;};
         const char *getPort() const { return _port; };
         NetworkManager *getNetworkManager() const { return _network; };

@@ -40,6 +40,7 @@ void Core::gameloop()
         }
         _renderWindow->clear();
         displayMap();
+        displayItems();
         _renderWindow->display();
         _network->isDataAvailable();
     }
@@ -56,13 +57,38 @@ void Core::displayMap()
             texture.loadFromFile("./assets/grass.png");
             texture.setSmooth(true);
             sprite.setTexture(texture);
-            sprite.setPosition(i->getPos());
+            sprite.setPosition(sf::Vector2f(i->getPos().x * 90, i->getPos().y * 90));
             sprite.setScale(
-                75 / sprite.getLocalBounds().width,
-                75 / sprite.getLocalBounds().height);
+                90 / sprite.getLocalBounds().width,
+                90 / sprite.getLocalBounds().height);
             y++;
             _renderWindow->draw(sprite);
     }
 
 
+}
+
+void Core::displayItems()
+{
+    std::vector<MapCell *> &entities = _map->getCells();
+
+    for (int y = 0; y < _map->getH(); ++y) {
+		for (int x = 0; x < _map->getW(); ++x) {
+			std::vector<Item *> &items = _map->getACell(x, y)->getItems();
+            for (const auto &y : items) {
+                sf::Texture texture;
+                sf::Sprite sprite;
+                if (y->getQuantity() > 0) {
+                    texture.loadFromFile(y->getTexturePath().c_str());
+                    texture.setSmooth(true);
+                    sprite.setTexture(texture);
+                    sprite.setPosition(sf::Vector2f(y->getPos().x * 90, y->getPos().y * 90));
+                    sprite.setScale(
+                        30 / sprite.getLocalBounds().width,
+                        30 / sprite.getLocalBounds().height);
+                    _renderWindow->draw(sprite);
+                }
+            }
+		}
+    }
 }

@@ -19,6 +19,7 @@ class MapCell {
 		~MapCell();
 		sf::Vector2f getPos() {return _pos;};
 		std::vector<Item*> &getItems() {return _items;};
+		void toString();
 	protected:
 	private:
 		sf::Vector2f _pos;
