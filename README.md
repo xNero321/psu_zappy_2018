@@ -52,7 +52,7 @@
 
 ### Map
 
-<img src="imgs/game.png" alt="Map" width="100"/>
+<img src="imgs/game.png" alt="Map" width="300"/>
 
 ### Commands
 |**Symbol**|**Meaning**|**Symbol**|**Meaning**|
