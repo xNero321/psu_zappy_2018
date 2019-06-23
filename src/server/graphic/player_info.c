@@ -20,4 +20,5 @@ char *pnw(client_t *client, char *cmd, server_t *serv)
 char *ppo(client_t *client, char *cmd, server_t *serv)
 {
     int id = atoi(&cmd[5]);
+    
 }

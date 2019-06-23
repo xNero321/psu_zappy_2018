@@ -17,7 +17,8 @@ char *get_cellcontent(mapcell_t *cell, char *look)
         if (tmp[strlen(tmp) - 1] && tmp[strlen(tmp) - 1] != ','
         && cell->obj[it] != 0)
             asprintf(&tmp, "%s ", tmp);
-        asprintf(&tmp, "%s%s", tmp, item[cell->obj[it]]);
+        if (cell->obj[it] != 0)
+            asprintf(&tmp, "%s%s", tmp, item[it]);
     }
     asprintf(&look, "%s%s", look, tmp);
     free(tmp);
