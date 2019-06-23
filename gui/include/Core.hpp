@@ -28,6 +28,7 @@ class Core {
         void gameloop();
         void displayMap();
         void displayItems();
+        void displayPlayers();
         void displayInfoTails(sf::Vector2f pos);
         bool displayInfoPlayer(sf::Vector2f pos);
         const char *getHost() const {return _host;};
