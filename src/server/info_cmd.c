@@ -63,7 +63,7 @@ char *inventory(client_t *player, char *cmd, server_t *serv)
         if (i < 6)
             asprintf(&items, "%s,", items);
         else
-            asprintf(&items, "%s]", items);
+            asprintf(&items, "%s]\n", items);
     }
     return (items);
 }

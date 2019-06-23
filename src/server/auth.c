@@ -19,6 +19,7 @@ void place_client_on_map(server_t *srv, client_t *client, team_t *team)
         for (int j = 0; j < y; j++, tile = tile->dir[DOWN]);
         for (int i = 0; i < x; i++, tile = tile->dir[RIGHT]);
         client->pos = tile;
+        printf("Client n°%d is connected in team: [%s]\n", client->id, team->name);
         client->pos->character++;
         client->pos->players = realloc(client->pos->players,
         client->pos->character * sizeof(client_t *));
@@ -43,6 +44,7 @@ void join_team(server_t *srv, client_t *client, char *str)
         if (list != NULL && !strcmp(list->name, str)) {
             client->team = list;
             client->is_connected = true;
+            printf("client_num%d\n", client->team->free_slots);
             send_message(client->sockfd, "%d\n", \
             client->team->free_slots - 1);
             place_client_on_map(srv, client, list);
@@ -57,6 +59,7 @@ bool register_command(client_t *client, char *cmd)
     for (int i = 0; i < 1024; i++) {
         if (client->cmd_queue[i] == NULL) {
             client->cmd_queue[i] = cmd;
+            printf("Command registered [placement = %d]: %s\n", i, cmd);
             return (true);
         }
     }

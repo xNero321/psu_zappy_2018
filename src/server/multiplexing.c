@@ -40,7 +40,6 @@ void multiplexing_loop(server_t *server)
             events_distribution(server, i);
     }
     t_e = get_time();
-    // client_cmd_exec() ?
 }
 
 void start_multiplexing(server_t *server)
@@ -80,6 +79,7 @@ void manage_buffer(server_t *server, int fd)
 {
     client_t *client = client_fd(server, fd);
     char *str = NULL;
+    int i = 0;
     if (client == NULL)
         return;
     if (read_cmd(&client->buff, fd) == false)
@@ -91,9 +91,13 @@ void manage_buffer(server_t *server, int fd)
             return;
         if (!client->is_connected) {
             join_team(server, client, str);
+        } else if (strcmp(str, "-1") == 0) {
+            send_message(client->sockfd, "ko\n");
+            return;
         } else {
             register_command(client, str);
-            send_message(client->sockfd, exec_cmd(server, client, str));
+            send_message(client->sockfd, exec_cmd(server, client, "Inventory"));
+            //send_message(client->sockfd, "ko\n");
             return;
         }
     }

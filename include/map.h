@@ -10,6 +10,8 @@
 
     #include "my_zappy.h"
 
+    typedef struct client_s client_t;
+
     typedef enum item {
         FOOD,
         LINEMATE,
