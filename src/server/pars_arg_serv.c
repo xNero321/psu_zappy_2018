@@ -82,7 +82,6 @@ void serv(int ac, char** av, options_serv_t *opts, server_t *server)
         print_usage_serv();
     else
         if (!parse_args_serv(ac, av, opts, server)) {
-            printf("%s\n", "mange t mort");
             exit(84);
         }
 }
