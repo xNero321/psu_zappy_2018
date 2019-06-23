@@ -87,5 +87,10 @@
     char *take(client_t *, char *, server_t *);
     char *set(client_t *, char *, server_t *);
     char *connect_nbr(client_t *, char *, server_t *);
+    char *eject(client_t *, char *, server_t *);
+    char *my_fork(client_t *, char *, server_t *);
+    char *incantation(client_t *, char *, server_t *);
+    char *broadcast(client_t *, char *, server_t *);
+    char *exec_cmd(server_t *, client_t *, char *);
     
 #endif /* !__SERVER_H_ */

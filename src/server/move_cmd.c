@@ -24,3 +24,8 @@ char *left(client_t *player, char *cmd, server_t *serv)
     player->dir = (player->dir == LEFT) ? DOWN : player->dir - 1;
     return ("ok");
 }
+
+char *eject(client_t *player, char *cmd, server_t *serv)
+{
+    return ("ko");
+}

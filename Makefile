@@ -23,7 +23,8 @@ SRC_SRV		=	main.c							\
 				./src/server/message.c			\
 				./src/server/get_user.c			\
 				./src/server/list.c				\
-				./src/server/items_cmd.c
+				./src/server/items_cmd.c		\
+				./src/server/exec_cmd.c
 
 OBJ_SRV		=	$(SRC_SRV:.c=.o)
 
