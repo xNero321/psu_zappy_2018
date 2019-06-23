@@ -17,10 +17,9 @@ char *take(client_t *player, char *cmd, server_t *serv)
             player->pos->obj[i] = 0;
             player->inv[i]++;
             return ("ok\n");
-        } else
-            printf("%s %s\n", &cmd[5], item[i]);
     }
     return ("ko\n");
+    }
 }
 
 char *set(client_t *player, char *cmd, server_t *serv)

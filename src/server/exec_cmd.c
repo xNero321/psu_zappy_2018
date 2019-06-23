@@ -16,7 +16,6 @@ char *exec_cmd(server_t *serv, client_t *player, char *cmd)
     "Take", "Set", "Connect_nbr", "Eject", "Fork", "Incantation", "Broadcast"};
 
     for (int i = 0; i < 12; i++) {
-        printf("%d %s\n", i, cmd_name[i]);
         if (strncmp(cmd_name[i], cmd, strlen(cmd_name[i])) == 0)
             return (cmd_func[i](player, cmd, serv));
     }

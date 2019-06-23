@@ -36,8 +36,10 @@ void multiplexing_loop(server_t *server)
             fprintf(stderr, "%s\n", "Error: epool_wait");
             exit(84);
         }
-        for (int i = 0; i < fd; ++i)
+        for (int i = 0; i < fd; ++i) {
+            usleep(10000);
             events_distribution(server, i);
+        }
     }
     t_e = get_time();
 }
@@ -96,8 +98,12 @@ void manage_buffer(server_t *server, int fd)
             send_message(client->sockfd, "ko\n");
             return;
         } else {
-            //register_command(client, str);
-            printf("%s\n", exec_cmd(server, client, str));
+            printf("------ COMMAND EXECUTION ------\n");
+            printf("CLIENT n°%d from team [%s]\n",
+            client->id, client->team->name);
+            printf("COMMAND: [%s]\n", str);
+            printf("OUTPUT: %s", exec_cmd(server, client, str));
+            printf("-------------------------------\n\n\n");
             send_message(client->sockfd, exec_cmd(server, client, str));
             return;
         }
