@@ -11,18 +11,6 @@
 #include "server.h"
 #include "read_cmds.h"
 
-char *sstrstr(char *buffer, char *find, size_t length)
-{
-    size_t find_length = strlen(find);
-    size_t i;
-
-    for (i = 0; i < length; i++) {
-        if (strncmp(&buffer[i], find, find_length) == 0)
-            return (&buffer[i]);
-    }
-    return (NULL);
-}
-
 static char *get_end_cmd(linked_buffer_t *buffer, char *to, \
 const char *buff_end, char *str)
 {
@@ -40,6 +28,18 @@ const char *buff_end, char *str)
     buffer->tail = str + strlen(to);
     memset(buffer->tail - strlen(to), 0, strlen(to));
     return (ret);
+}
+
+char *sstrstr(char *buffer, char *find, size_t length)
+{
+    size_t find_length = strlen(find);
+    size_t i;
+    
+    for (i = 0; i < length; i++) {
+        if (strncmp(&buffer[i], find, find_length) == 0)
+        return (&buffer[i]);
+    }
+    return (NULL);
 }
 
 char *read_cmd2(linked_buffer_t *buffer, char *to, \

@@ -4,7 +4,6 @@
 ** File description:
 ** get_user.c
 */
-
 #include "server.h"
 
 void get_user(client_t *clt, server_t *server)
