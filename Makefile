@@ -36,10 +36,13 @@ all:			$(NAME_SRV)
 $(NAME_SRV):	$(OBJ_SRV)
 	$(CC) $(OBJ_SRV) -o $(NAME_SRV) $(LDFLAGS)
 
+zappy_ai:
+	cp src/client/client.py $(NAME_CLIENT)
+
 clean:
 	$(RM) $(OBJ_SRV)
 
 fclean: clean
-	$(RM) $(NAME_SRV)
+	$(RM) $(NAME_SRV) $(NAME_CLIENT)
 
 re: fclean all

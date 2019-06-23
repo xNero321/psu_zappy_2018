@@ -1,5 +1,9 @@
 #!/bin/env python3
 import argparse
+import sys
+
+sys.path.append('./src/client/')
+
 import socket_connection
 import zappy_ia
 
