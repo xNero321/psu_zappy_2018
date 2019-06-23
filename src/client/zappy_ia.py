@@ -31,8 +31,8 @@ def check_return_team(s, arg):
     except:
         info_ia.number = int(data.decode('utf-8')[:-1])
         data = s.recv(4096)
-        info_ia.map_size_x = int(data.split(' ')[0])
-        info_ia.map_size_y = int(data.split(' ')[1][:-1])
+        info_ia.map_size_x = int(data.decode('utf-8').split(' ')[0])
+        info_ia.map_size_y = int(data.decode('utf-8').split(' ')[1][:-1])
 
 def start_of_ia(s, arg):
     check_good_start(s)
