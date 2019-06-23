@@ -43,15 +43,10 @@ void Core::gameloop()
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
-                    // get the current mouse position in the window
                     sf::Vector2i pixelPos(event.mouseButton.x, event.mouseButton.y);
-
-                        // convert it to world coordinates
                     sf::Vector2f worldPos = _renderWindow->mapPixelToCoords(pixelPos);
-                    std::cout << "the right button was pressed" << std::endl;
-                    std::cout << "mouse x: " << worldPos.x << std::endl;
-                    std::cout << "mouse y: " << worldPos.y << std::endl;
-                    displayInfoTails(worldPos);
+                    if (!displayInfoPlayer(worldPos))
+                        displayInfoTails(worldPos);
                 }
             }
         }
@@ -75,6 +70,22 @@ void Core::displayInfoTails(sf::Vector2f pos)
                 _map->getACell(x, y)->toString();
         }
     }
+}
+
+bool Core::displayInfoPlayer(sf::Vector2f pos)
+{
+    std::vector<Player *> &entities = _map->getPlayers();
+    for (const auto &i : entities)
+    {
+        if (((i->getPosition().x - 1) * 90) + 90 <= pos.x &&
+            (i->getPosition().x * 90) + 90 >= pos.x &&
+            ((i->getPosition().y - 1) * 90) + 90 <= pos.y &&
+            (i->getPosition().y * 90) + 90 >= pos.y) {
+                i->toString();
+                return true;
+            }
+    }
+    return false;
 }
 
 void Core::displayMap()

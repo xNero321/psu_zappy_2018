@@ -71,15 +71,12 @@ void NetworkManager::readSocket()
 
     while (readData)
     {
-        std::cout << "Receiving chunk... ";
         bzero(buffer, 4056);
         int r = read(_sockfd, buffer, 4056);
         if (r < 0)
             exit(84);
         readStream << buffer;
         readData = readStream.str().find("\0") == std::string::npos;
-
-        std::cout << "Done (length: " << readStream.str().length() << ")" << std::endl;
     }
     std::istringstream stream(readStream.str());
     std::string line;
