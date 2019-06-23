@@ -27,6 +27,7 @@ class Player {
         void setPosition(sf::Vector2f pos) {_pos = pos;};
         void setLvl(int lvl) { _lvl = lvl; };
         void setIncantation(bool inc) {_incantation = inc;};
+        void toString();
 
     protected:
 	private:

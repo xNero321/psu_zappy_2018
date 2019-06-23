@@ -31,3 +31,18 @@ std::string Player::getTextureToDisplay()
     }
     return("");
 }
+
+void Player::toString()
+{
+    std::cout << "\n\nPlayer " << _number << ":" << std::endl;
+    std::cout << "Position: " << _pos.x << "," << _pos.y;
+    std::cout << "\t Level: " << _lvl;
+    std::cout << "\t Team: " << _team << std::endl;
+    std::cout << "Inventory: " << std::endl;
+
+    for (auto elem : _inventory)
+    {
+        std::cout << elem.first << ": " << elem.second << "\n";
+    }
+    std::cout << "\n";
+}
