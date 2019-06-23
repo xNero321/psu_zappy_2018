@@ -93,6 +93,8 @@ void manage_buffer(server_t *server, int fd)
             join_team(server, client, str);
        } else {
             register_command(client, str);
+            send_message(client->sockfd, exec_cmd(server, client, str));
+            return;
         }
     }
 }
