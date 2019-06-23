@@ -76,7 +76,7 @@ server_t *server)
     return (true);
 }
 
-void serv(int ac, char** av, options_serv_t *opts, server_t *server)
+void serv(int ac, char **av, options_serv_t *opts, server_t *server)
 {
     if (ac == 2 && strcmp(av[1], "-help") == 0)
         print_usage_serv();

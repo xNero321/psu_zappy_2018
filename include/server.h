@@ -59,7 +59,6 @@
     struct client_s {
         int id;
         int sockfd;
-        char *cmd_queue[1024];
         mapcell_t *pos;
         struct sockaddr_in cin;
         team_t *team;

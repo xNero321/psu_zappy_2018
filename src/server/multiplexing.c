@@ -85,7 +85,6 @@ void manage_buffer(server_t *server, int fd)
     if (client == NULL)
         return;
     if (read_cmd(&client->buff, fd) == false)
-        //disconnect_client;
         return;
     while (1) {
         str = read_cmd_where(&client->buff, "\n");

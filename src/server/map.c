@@ -97,23 +97,5 @@ mapcell_t *create_map(options_serv_t *opt)
         x++;
     }
     fill_map(map, opt);
-    // MAP DEBUG
-    // mapcell_t *line = map;
-    // mapcell_t *cell = line;
-    // for (int y = 0; y < opt->height; y++, line = line->dir[DOWN]) {
-    //     cell = line;
-    //     for (int x = 0; x < opt->width; x++, cell = cell->dir[RIGHT]) {
-    //         // if (cell->dir[LEFT]->x != cell->x - 1 || cell->dir[LEFT]->y != cell->y)
-    //         //     printf("[%d,%d] left [%d,%d]\n", cell->x, cell->y, cell->dir[LEFT]->x, cell->dir[LEFT]->y);
-    //         // if (cell->dir[UP]->x != cell->x || cell->dir[UP]->y != cell->y - 1)
-    //         //     printf("[%d,%d] up [%d,%d]\n", cell->x, cell->y, cell->dir[UP]->x, cell->dir[UP]->y);
-    //         // if (cell->dir[RIGHT]->x != cell->x + 1 || cell->dir[RIGHT]->y != cell->y)
-    //         //     printf("[%d,%d] right [%d,%d]\n", cell->x, cell->y, cell->dir[RIGHT]->x, cell->dir[RIGHT]->y);
-    //         // if (cell->dir[DOWN]->x != cell->x || cell->dir[DOWN]->y != cell->y + 1)
-    //         //     printf("[%d,%d] down [%d,%d]\n", cell->x, cell->y, cell->dir[DOWN]->x, cell->dir[DOWN]->y);
-    //     printf("[%d,%d]", cell->x, cell->y);
-    //     }
-    //     printf("\n");
-    // }
     return (map);
 }

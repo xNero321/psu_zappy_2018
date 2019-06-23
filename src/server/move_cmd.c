@@ -39,7 +39,6 @@ char *left(client_t *player, char *cmd, server_t *serv)
 
 char *eject(client_t *player, char *cmd, server_t *serv)
 {
-    
     if (player->pos->character == 1)
         return ("ko\n");
     for (int i = 0; i < player->pos->character; i++) {

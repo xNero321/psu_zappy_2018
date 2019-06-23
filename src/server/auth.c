@@ -25,7 +25,6 @@ void place_player(server_t *srv, client_t *client, team_t *team)
         client->pos->players[client->pos->character - 1] = client;
         send_message(client->sockfd, "%d %d\n", x, y);
         team->free_slots--;
-        //gfx_pnw(srv, client);
         return ;
     }
     send_message(client->sockfd, "ko\n");
