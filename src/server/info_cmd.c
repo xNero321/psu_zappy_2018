@@ -38,7 +38,7 @@ char *get_line(char *look, int i, mapcell_t *cell, client_t *player)
     return (look);
 }
 
-char *look(client_t *player)
+char *look(client_t *player, char *cmd, server_t *serv)
 {
     char *look = "[";
     mapcell_t *line = player->pos;
@@ -52,7 +52,7 @@ char *look(client_t *player)
     return (look);
 }
 
-char *inventory(client_t *player)
+char *inventory(client_t *player, char *cmd, server_t *serv)
 {
     char *items = "[";
     char item[7][10] = {"food", "linemate", "deraumere", "sibur", "mendiane",
@@ -66,4 +66,12 @@ char *inventory(client_t *player)
             asprintf(&items, "%s]", items);
     }
     return (items);
+}
+
+char *connect_nbr(client_t *player, char *cmd, server_t *serv)
+{
+    char *slots = "";
+
+    asprintf(&slots, "%d", serv->args.clientsNb - serv->nb_players);
+    return (slots);
 }

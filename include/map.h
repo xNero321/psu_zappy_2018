@@ -34,5 +34,6 @@
     char *map_to_array(mapcell_t *map);
     void perror_exit(char* str, int error);
     int send_map(mapcell_t *map);
+    void destroy_map(mapcell_t *map, options_serv_t opt);
 
 #endif /* !MAP_H_ */

@@ -78,10 +78,14 @@
     void init_buffer(linked_buffer_t *buff);
     int send_message(int fd, const char *format, ...);
     void events_distribution(server_t *server, int i);
-    char *right(client_t *);
-    char *forward(client_t *);
-    char *left(client_t *);
-    char *look(client_t *);
-    char *inventory(client_t *);
+
+    char *right(client_t *, char *, server_t *);
+    char *forward(client_t *, char *, server_t *);
+    char *left(client_t *, char *, server_t *);
+    char *look(client_t *, char *, server_t *);
+    char *inventory(client_t *, char *, server_t *);
+    char *take(client_t *, char *, server_t *);
+    char *set(client_t *, char *, server_t *);
+    char *connect_nbr(client_t *, char *, server_t *);
     
 #endif /* !__SERVER_H_ */

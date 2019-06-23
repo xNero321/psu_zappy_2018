@@ -17,7 +17,7 @@ int send_message(int fd, const char *format, ...)
         return (0);
     va_start(strs, format);
     if (vdprintf(fd, format, strs) <= 0) {
-        fprintf(stderr, "%s\n", "Error: Message cannot be sent to fd #%d", fd);
+        fprintf(stderr, "Error: Message cannot be sent to fd #%d\n", fd);
         return (0);
     }
     va_end(strs);
