@@ -6,21 +6,15 @@
 */
 
 #ifndef READ_CMDS_H
-	#define READ_CMDS_H
+    #define READ_CMDS_H
 
-	#include <stdio.h>
-	#include <stdlib.h>
-	#include <stdbool.h>
+    #include <stdbool.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include "server.h"
 
-	typedef struct circular_buffer_s
-	{
-		char buffer[2048];
-		char *head;
-		char *tail;
-	} circular_buffer_t;
+    void init_read_cmd(linked_buffer_t *buffer);
+    bool read_cmd(linked_buffer_t *buffer, int fd);
+    char *read_cmd_where(linked_buffer_t *buffer, char *to);
 
-	void circular_buffer_init(circular_buffer_t *buffer);
-	bool circular_buffer_read(circular_buffer_t *buffer, int fd);
-	char *circular_buffer_get_to(circular_buffer_t *buffer, char *to);
-
-#endif /* !READ_CMDS_H */
+#endif /* !CIRCULAR_BUFFER_H_ */

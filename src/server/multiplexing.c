@@ -82,11 +82,11 @@ void manage_buffer(server_t *server, int fd)
     char *str = NULL;
     if (client == NULL)
         return;
-    if (circular_buffer_read(&client->buff, fd) == false)
+    if (read_cmd(&client->buff, fd) == false)
         //disconnect_client;
         return;
     while (1) {
-        str = circular_buffer_get_to(&client->buff, "\n");
+        str = read_cmd_where(&client->buff, "\n");
         if (str == NULL || (strcmp(str, "-1") == 0) == -1)
             return;
         if (!client->is_connected) {

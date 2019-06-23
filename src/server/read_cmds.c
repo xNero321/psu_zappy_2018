@@ -23,7 +23,7 @@ char *sstrstr(char *buffer, char *find, size_t length)
     return (NULL);
 }
 
-static char *circular_buffer_get_end(circular_buffer_t *buffer, char *to, \
+static char *get_end_cmd(linked_buffer_t *buffer, char *to, \
 const char *buff_end, char *str)
 {
     char *ret = malloc((size_t)(buff_end - buffer->tail + \
@@ -42,7 +42,7 @@ const char *buff_end, char *str)
     return (ret);
 }
 
-char *circular_buffer_get_standard(circular_buffer_t *buffer, char *to, \
+char *read_cmd2(linked_buffer_t *buffer, char *to, \
 char *str)
 {
     char *ret = strndup(buffer->tail, str - buffer->tail);
@@ -55,7 +55,7 @@ char *str)
 }
 
 
-char *circular_buffer_get_to(circular_buffer_t *buffer, char *to)
+char *read_cmd_where(linked_buffer_t *buffer, char *to)
 {
     char *str;
     const char *buff_end = (((char *)&buffer->buffer) + 2048);
@@ -68,15 +68,15 @@ char *circular_buffer_get_to(circular_buffer_t *buffer, char *to)
         (str = sstrstr(buffer->tail, to, ((int)(((buffer->head == \
         (char *)&buffer->buffer) ? buff_end : buffer->head) - \
         buffer->tail)))) != NULL)
-        return (circular_buffer_get_standard(buffer, to, str));
+        return (read_cmd2(buffer, to, str));
     if (buffer->head <= buffer->tail && (str = sstrstr(\
         (char *)&buffer->buffer, to, buffer->head - \
         (char *)&buffer->buffer)))
-        return (circular_buffer_get_end(buffer, to, buff_end, str));
+        return (get_end_cmd(buffer, to, buff_end, str));
     return ("-1");
 }
 
-bool circular_buffer_read(circular_buffer_t *buffer, int fd)
+bool read_cmd(linked_buffer_t *buffer, int fd)
 {
     const char *buff_end = (((char *)&buffer->buffer) + 2048);
     int readed = 0;
@@ -97,7 +97,7 @@ bool circular_buffer_read(circular_buffer_t *buffer, int fd)
     buffer->head += readed;
     if (buffer->head == buff_end) {
         buffer->head = (char *)&buffer->buffer;
-        circular_buffer_read(buffer, fd);
+        read_cmd(buffer, fd);
     }
     return (true);
 }
