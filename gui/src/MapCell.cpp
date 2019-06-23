@@ -19,8 +19,29 @@ MapCell::~MapCell()
 void MapCell::toString()
 {
     std::cout << "Cell at " << _pos.x << "," << _pos.y << std::endl;
+    std::cout << "Items in the cell:\n";
     for (const auto &i : _items) {
-        std::cout << "Type: " << i->getType() << std::endl;
-        std::cout << "Quantity: " << i->getQuantity() << std::endl;
+        std::cout << "Type: " << getItemName(i->getType());
+        std::cout << "\t\tQuantity: " << i->getQuantity() << std::endl;
+    }
+}
+
+std::string MapCell::getItemName(int type)
+{
+    switch (type) {
+        case 0:
+            return("FOOD");
+        case 1:
+            return("LINEMATE");
+        case 2:
+            return("DERAUMERE");
+        case 3:
+            return("SIBUR");
+        case 4:
+            return("MENDIANE");
+        case 5:
+            return("PHIRAS");
+        case 6:
+            return("THYSTAME");
     }
 }
