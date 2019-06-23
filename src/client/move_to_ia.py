@@ -60,5 +60,6 @@ def move_to_ia(s, lvl):
             socket_gestion.go_forward(s)
             socket_gestion.turn_right(s)
             socket_gestion.go_forward(s)
+        if direction == -1:
+            return
         player_id, direction = get_info_direction(s, lvl, player_id)
-    print(socket_gestion.get_look(s))

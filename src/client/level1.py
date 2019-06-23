@@ -10,6 +10,8 @@ def require_obj(inventory, level):
         return False
     if level == 3 and inventory['linemate'] >= 2 and inventory['sibur'] >= 1 and inventory['phiras'] >= 2:
         return False
+    if level == 4 and inventory['linemate'] >= 1 and inventory['deraumere'] >= 1 and inventory['sibur'] >= 2 and inventory['phiras'] >= 1:
+        return False
     return True
 
 def choose_direction(lvl, inventory):
@@ -29,6 +31,17 @@ def choose_direction(lvl, inventory):
                 return 'phiras'
             else:
                 return 'sibur'
+        else:
+            return 'linemate'
+    if lvl == 4:
+        if inventory['linemate'] >= 1:
+            if inventory['deraumere'] >= 1:
+                if inventory['sibur'] >= 2:
+                    return 'phiras'
+                else:
+                    return 'sibur'
+            else:
+                return 'deraumere'
         else:
             return 'linemate'
     return "Food"
@@ -103,14 +116,19 @@ def drop_all_inquentation(s, lvl, info_ia):
         socket_gestion.drop_object(s, 'sibur')
         socket_gestion.drop_object(s, 'phiras')
         socket_gestion.drop_object(s, 'phiras')
+    if lvl == 4:
+        socket_gestion.drop_object(s, 'linemate')
+        socket_gestion.drop_object(s, 'deraumere')
+        socket_gestion.drop_object(s, 'sibur')
+        socket_gestion.drop_object(s, 'sibur')
+        socket_gestion.drop_object(s, 'phiras')
     if lvl != 1:
-        socket_gestion.broadcast(s, 'player:{}|level:{}'.format(info_ia.number, lvl))
+        socket_gestion.broadcast(s, 'player:{}|level:{}'.format(id(socket_gestion), lvl))
         print('Waiting other player')
         map = socket_gestion.get_look(s)
         while not check_player_nb(lvl, map):
             map = socket_gestion.get_look(s)
-            socket_gestion.broadcast(s, 'player:{}|level:{}'.format(info_ia.number, lvl))
-    sleep(1)
+            socket_gestion.broadcast(s, 'player:{}|level:{}'.format(id(socket_gestion), lvl))
 
 def level(s, info_ia):
     my_map = socket_gestion.get_look(s)
@@ -119,14 +137,14 @@ def level(s, info_ia):
     while 1:
         go_get_rock(s, lvl, my_map, inventory, info_ia)
         if lvl != 8:
-            if require_obj(socket_gestion.get_inventory(s), lvl):
+            if require_obj(socket_gestion.get_inventory(s), lvl) or socket_gestion.check_if_broadcast_ok(lvl):
                 move_to_ia.move_to_ia(s, lvl)
             else:
                 drop_all_inquentation(s, lvl, info_ia)
+                socket_gestion.broadcast(s, 'player:{}|remove:'.format(id(socket_gestion)))
                 print('Start inquentation')
                 if not socket_gestion.start_inquentation(s):
                     print('Echec inquentaion, manque de chevre a sacrifier')
-                    s.recv(4096)
             lvl = socket_gestion.get_lvl(s, level)
             print('Success pass the level {}'.format(lvl))
             my_map = socket_gestion.get_look(s)
