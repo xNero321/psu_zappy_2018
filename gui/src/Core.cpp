@@ -37,24 +37,7 @@ void Core::gameloop()
         {
             if (event.type == sf::Event::Closed)
                 _renderWindow->close();
-            if (event.type == sf::Event::MouseButtonPressed)
-            {
-            if (event.mouseButton.button == sf::Mouse::Left)
-            {
-                std::cout << "the right button was pressed" << std::endl;
-                std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-                std::cout << "mouse y: " << event.mouseButton.y << std::endl;
-                for (const auto &tile : _map->getCells()) {
-			    if (_mouseManager->intersects(tile->getRectangle())) {
-				std::cout << "Clicked on tile at position : x=" << tile->getPosition().x << " y=" << tile->getPosition().y << std::endl;
-				_graphicManager->showRessourcesOnTile(tile);
-				return ;
-			}
-		}
-            }
-}
         }
-        
         _renderWindow->clear();
         displayMap();
         _renderWindow->display();
