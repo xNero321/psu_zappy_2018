@@ -51,15 +51,3 @@ void add_to_team(server_t *srv, client_t *client, char *str)
     } while (list_next(&list));
     send_message(client->sockfd, "ko\n");
 }
-
-bool register_command(client_t *client, char *cmd)
-{
-    for (int i = 0; i < 1024; i++) {
-        if (client->cmd_queue[i] == NULL) {
-            client->cmd_queue[i] = cmd;
-            printf("Command registered [placement = %d]: %s\n", i, cmd);
-            return (true);
-        }
-    }
-    return (false);
-}

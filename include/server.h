@@ -89,7 +89,6 @@
     void events_distribution(server_t *server, int i);
     void place_player(server_t *srv, client_t *client, team_t *team);
     void add_to_team(server_t *srv, client_t *client, char *str);
-    bool register_command(client_t *client, char *command);
     char *right(client_t *, char *, server_t *);
     char *forward(client_t *, char *, server_t *);
     char *left(client_t *, char *, server_t *);
