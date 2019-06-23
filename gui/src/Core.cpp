@@ -29,7 +29,7 @@ void Core::init()
 void Core::gameloop()
 {    // Limit the framerate to 60 frames per second (this step is optional)
     // The main loop - ends as soon as the window is closed
-
+    sf::Vector2i position;
     while (_renderWindow->isOpen())
     {
         sf::Event event;
@@ -37,6 +37,10 @@ void Core::gameloop()
         {
             if (event.type == sf::Event::Closed)
                 _renderWindow->close();
+            if (event.type == sf::Event::MouseLeft) {
+                position = sf::Mouse::getPosition();
+                displayInfoTails(position)
+            }
         }
         _renderWindow->clear();
         displayMap();
@@ -45,6 +49,20 @@ void Core::gameloop()
         _renderWindow->display();
         _network->isDataAvailable();
     }
+}
+
+void Core::displayInfoTails(sf::Vector2i pos)
+{
+    std::vector<MapCell *> &entities = _map->getCells();
+    int y = 0;
+    for (const auto &i : entities) {
+        if ((i->getPos().x - 1) * 90) + 90 <= pos.x  && (i->getPos().x * 90) + 90 >= pos.x  && ((i->getPos().y - 1) * 90) + 90 >= pos.y && (i->getPos().y * 90) + 90 <= pos.y) {
+                std::cout << i->getPos().x << ", " << i->getPos().y << std::endl;
+        }
+        y++;
+    }
+   
+
 }
 
 void Core::displayMap()
