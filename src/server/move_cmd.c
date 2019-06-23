@@ -44,7 +44,7 @@ char *eject(client_t *player, char *cmd, server_t *serv)
         return ("ko\n");
     for (int i = 0; i < player->pos->character; i++) {
         if (player->pos->players[i] != player) {
-            player->pos->players[i] = player->dir;
+            player->pos->players[i]->dir = player->dir;
             forward(player->pos->players[i], "forward", serv);
             send_message(player->sockfd, "eject: \n");
         }
