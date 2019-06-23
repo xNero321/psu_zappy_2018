@@ -23,10 +23,16 @@ def check_return_team(s, arg):
     except:
         print('recv ko went team was send', file=stderr)
         exit(84)
-    tab = data.decode('utf-8').split('\n')
-    info_ia.number = int(tab[0])
-    info_ia.map_size_x = int(tab[1].split(' ')[0])
-    info_ia.map_size_x = int(tab[1].split(' ')[1])
+    try:
+        tab = data.decode('utf-8').split('\n')
+        info_ia.number = int(tab[0])
+        info_ia.map_size_x = int(tab[1].split(' ')[0])
+        info_ia.map_size_x = int(tab[1].split(' ')[1])
+    except:
+        info_ia.number = int(data.decode('utf-8')[:-1])
+        data = s.recv(4096)
+        info_ia.map_size_x = int(data.split(' ')[0])
+        info_ia.map_size_y = int(data.split(' ')[1][:-1])
 
 def start_of_ia(s, arg):
     check_good_start(s)
