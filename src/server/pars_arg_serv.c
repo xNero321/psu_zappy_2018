@@ -40,8 +40,8 @@ void get_team(server_t *server, int argc, char **argv)
     }
 }
 
-bool analyse_opt(char** av, options_serv_t *opts, int8_t opt,
-    server_t *server, int ac)
+bool analyse_opt(char **av, options_serv_t *opts, int8_t opt,
+server_t *server, int ac)
 {
     switch (opt) {
         case 'p': if (!str_to_uint16(optarg, &(opts->port)))
@@ -63,8 +63,8 @@ bool analyse_opt(char** av, options_serv_t *opts, int8_t opt,
 }
 
 
-bool parse_args_serv(int ac, char* av[], options_serv_t* opts,
-    server_t *server)
+bool parse_args_serv(int ac, char *av[], options_serv_t *opts,
+server_t *server)
 {
     int32_t idx = 0;
 

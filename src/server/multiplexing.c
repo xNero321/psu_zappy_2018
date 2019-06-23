@@ -91,8 +91,7 @@ void manage_buffer(server_t *server, int fd)
             return;
         if (!client->is_connected) {
             join_team(server, client, str);
-       } else {
+        } else
             register_command(client, str);
-        }
     }
 }

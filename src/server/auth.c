@@ -20,6 +20,9 @@ void place_client_on_map(server_t *srv, client_t *client, team_t *team)
         for (int i = 0; i < x; i++, tile = tile->dir[RIGHT]);
         client->pos = tile;
         client->pos->character++;
+        client->pos->players = realloc(client->pos->players,
+        client->pos->character * sizeof(client_t *));
+        client->pos->players[client->pos->character - 1] = client;
         send_message(client->sockfd, "%d %d\n", x, y);
         team->free_slots--;
         //gfx_pnw(srv, client);

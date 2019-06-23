@@ -20,11 +20,19 @@ char *incantation(client_t *player, char *cmd, server_t *serv)
     {6, 1, 2, 3, 0, 1, 0}, {6, 2, 2, 2, 2, 2, 1}};
 
     for (int i = 1; i < 8; i++) {
-        if (player->inv[i - 1] < requirements[i])
+        if (player->inv[i - 1] < requirements[player->level - 1][i])
             return ("ko");
     }
-    asprintf(&response, "%s%d", response, player->level);
-    return (response);
+    for (int i = 0; i < player->pos->character; i++) {
+        if (player->pos->players[i]->level == player->level)
+            requirements[player->level - 1][0]--;
+        if (requirements[player->level - 1][0] == 0) {
+            player->level++;
+            asprintf(&response, "%s%d", response, player->level);
+            return (response);
+        }
+    }
+    return ("ko");
 }
 
 char *broadcast(client_t *player, char *cmd, server_t *serv)

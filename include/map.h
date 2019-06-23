@@ -25,6 +25,7 @@
     struct mapcell_s {
         item_t obj[7];
         int character;
+        client_t **players;
         int x;
         int y;
         mapcell_t *dir[4];

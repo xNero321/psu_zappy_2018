@@ -49,6 +49,8 @@ void new_cell(mapcell_t *map, int y, int x)
     new->dir[DOWN] = NULL;
     new->x = x;
     new->y = y;
+    new->character = 0;
+    new->players = NULL;
     for (; tmp_cell && tmp_cell->dir[DOWN]; tmp_cell = tmp_cell->dir[DOWN]);
     for (; tmp_cell && tmp_cell->dir[RIGHT]; tmp_cell = tmp_cell->dir[RIGHT]);
     if (tmp_cell)

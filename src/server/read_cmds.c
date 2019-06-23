@@ -54,7 +54,6 @@ char *str)
     return (ret);
 }
 
-
 char *read_cmd_where(linked_buffer_t *buffer, char *to)
 {
     char *str;

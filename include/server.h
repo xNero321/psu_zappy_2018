@@ -72,12 +72,12 @@
         unsigned int ttl;
         linked_buffer_t buff;
     };
-    void serv(int ac, char** av, options_serv_t *opts, server_t *server);
+    void serv(int ac, char **av, options_serv_t *opts, server_t *server);
     void init_server(server_t *server);
-    bool parse_args_serv(int ac, char* av[], options_serv_t* opts,
-        server_t *server);
-    bool analyse_opt(char** av, options_serv_t *opts, int8_t opt,
-        server_t *server, int ac);
+    bool parse_args_serv(int ac, char *av[], options_serv_t *opts,
+    server_t *server);
+    bool analyse_opt(char **av, options_serv_t *opts, int8_t opt,
+    server_t *server, int ac);
     void get_team(server_t *server, int argc, char **argv);
     void init_server_socket(server_t *server, struct protoent *pe);
     void start_epoll(server_t *server);
