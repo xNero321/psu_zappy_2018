@@ -37,7 +37,7 @@ void fill_map(mapcell_t *map, options_serv_t *opt)
     for (int y = 0;  y < opt->height; line = line->dir[DOWN], y++, cell = line)
         for (int x = 0; x < opt->width; cell = cell->dir[RIGHT], x++)
             for (int i = 0; i < 7; i++)
-                cell->obj[i] = (rand() % 10 > i + 2) ? i + 1 : 0;
+                cell->obj[i] = (rand() % 10 > i + 2) ? 1 : 0;
 }
 
 void new_cell(mapcell_t *map, int y, int x)
