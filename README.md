@@ -14,11 +14,20 @@
 * **clientsNb** is the number of authorized clients per team<br/>
 * **freq** is the reciprocal of time unit for execution of actions<br/>
 
+\> $ make re
+
 ### Ai
 **USAGE : ./zappy_ai -p *port* -n *name* -h *machine***<br/>
 * **port** is the port number<br/>
 * **name** is the name of the team<br/>
 * **machine** is the name of the machine; localhost by default
+
+\> $ make re
+
+### Graphic
+**USAGE : ./zappy_graphic -p *port* -h *host***<br/>
+* **port** is the port number<br/>
+* **host** is the host of the server; 127.0.0.1 by default<br/>
 
 
 ## Gameplay
