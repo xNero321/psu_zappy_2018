@@ -17,20 +17,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
+#define PORT 4242
+
+typedef struct team_s team_t;
 
 typedef struct options_serv_s {
     uint16_t port;
     int width;
     int height;
-    char** nameX;
+    char **nameX;
     int clientsNb;
+    team_t *teams;
     int freq;
 } options_serv_t;
 
-bool parse_args_serv(int ac, char* av[], options_serv_t* opts);
 bool check_opts_serv(options_serv_t opts);
-bool str_to_uint16(const char* str, uint16_t* res);
-char** find_name(char** av);
+bool str_to_uint16(const char *str, uint16_t *res);
 void print_usage_serv();
-void serv(int ac, char** av);
+bool check_opts_serv(options_serv_t opts);
 #endif /* !MY_ZAPPY_H_ */

@@ -5,10 +5,18 @@
 ** main
 */
 
-#include "my_zappy.h"
+#include "server.h"
 
-int main(int ac, char**av)
+server_t server;
+
+int main(int ac, char **av)
 {
-    serv(ac, av);
+    mapcell_t *map = NULL;
+
+    serv(ac, av, &server.args, &server);
+    server.map = create_map(&server.args);
+    init_server(&server);
+    start_multiplexing(&server);
+    destroy_map(map, server.args);
     return (0);
 }

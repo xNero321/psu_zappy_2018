@@ -6,89 +6,82 @@
 */
 
 #include <getopt.h>
-#include "my_zappy.h"
+#include "server.h"
+#include "list.h"
 
-static struct option long_options[] = {{"port", required_argument, 0, 'p'},
-                                       {"name", required_argument, 0, 'n'},
-                                       {"width", required_argument, 0, 'x'},
-                                       {"height", required_argument, 0, 'y'},
-                                       {"clientsNb", required_argument, 0, 'c'},
-                                       {"freq", required_argument, 0, 'f'},
-                                       {0, 0, 0, 0}};
+static struct option long_options[] = {
+{"port", required_argument, 0, 'p'},
+{"name", required_argument, 0, 'n'},
+{"width", required_argument, 0, 'x'},
+{"height", required_argument, 0, 'y'},
+{"clientsNb", required_argument, 0, 'c'},
+{"freq", required_argument, 0, 'f'},
+{0, 0, 0, 0}};
 
 int size_tab(char **av)
 {
     int j;
-    int i;
+    int i = 0;
+
     for (j = 0; strcmp(av[j], "-n") != 0; j++);
     for (; av[j] != NULL; j++)
         i++;
     return (i);
 }
 
-char** find_name(char** av)
+void get_team(server_t *server, int argc, char **argv)
 {
-    char** toto = malloc(sizeof(char*) * size_tab(av));
-    int j;
-    for (j = 0; strcmp(av[j], "-n") != 0; j++);
-    j = j + 1;
-    int i = 0;
-    for (; av[j][0] != '-'; j++) {
-        toto[i] = malloc(sizeof(char) * strlen(av[j]));
-        strcpy(toto[i], av[j]);
-        i++;
+    team_t team;
+
+    optind--;
+    for ( ; optind < argc && *argv[optind] != '-'; optind++){
+        team.name = argv[optind];
+        list_push(&server->args.teams, &team);
     }
-    return (toto);
 }
 
-bool parse_args_serv(int ac, char* av[], options_serv_t* opts)
+bool analyse_opt(char **av, options_serv_t *opts, int8_t opt,
+server_t *server, int ac)
 {
-    int32_t long_index = 0;
-    for (int8_t opt = 0; opt != -1;
-         opt = getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &long_index)) {
-        switch (opt) {
-        case 'p':
-            if (!str_to_uint16(optarg, &(opts->port)))
-                return false;
+    switch (opt) {
+        case 'p': if (!str_to_uint16(optarg, &(opts->port)))
+                    return false;
             break;
-        case 'n':
-            opts->nameX = find_name(av);
+        case 'n': get_team(server, ac, av);
             break;
-        case 'x':
-            opts->width = atoi(optarg);
+        case 'x': opts->width = atoi(optarg);
             break;
-        case 'y':
-            opts->height = atoi(optarg);
+        case 'y': opts->height = atoi(optarg);
             break;
-        case 'c':
-            opts->clientsNb = atoi(optarg);
+        case 'c': opts->clientsNb = atoi(optarg);
             break;
-        case 'f':
-            opts->freq = atoi(optarg);
+        case 'f': opts->freq = atoi(optarg);
             break;
-        default:
-            break;
-        }
+        default: break;
     }
-    return true;
+    return (true);
 }
 
-bool check_opts_serv(options_serv_t opts)
+
+bool parse_args_serv(int ac, char *av[], options_serv_t *opts,
+server_t *server)
 {
-    if (opts.nameX != NULL && opts.width != 0 && opts.height != 0 &&
-        opts.clientsNb != 0 && opts.freq != 0 && opts.port != 0) {
-        return (true);
+    int32_t idx = 0;
+
+    for (int8_t opt = 0; opt != -1; opt =
+        getopt_long(ac, av, "p:n:x:y:c:f:", long_options, &idx)) {
+        if (!analyse_opt(av, opts, opt, server, ac))
+            return (false);
     }
-    return (false);
+    return (true);
 }
 
-void serv(int ac, char** av)
+void serv(int ac, char **av, options_serv_t *opts, server_t *server)
 {
-    options_serv_t opts = {0, 0, 0, NULL, 0, 0};
-
     if (ac == 2 && strcmp(av[1], "-help") == 0)
         print_usage_serv();
     else
-        if (!parse_args_serv(ac, av, &opts) || !check_opts_serv(opts))
+        if (!parse_args_serv(ac, av, opts, server)) {
             exit(84);
+        }
 }
